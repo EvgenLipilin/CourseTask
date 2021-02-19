@@ -14,6 +14,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.rootViewController = AutorizationViewController()
+        window?.makeKeyAndVisible()
         return true
     }
+}
+
+extension AppDelegate {
+    static let storyBoardName = "Storyboard"
+    static var shared: AppDelegate {
+        UIApplication.shared.delegate as! AppDelegate
+    }
+    
 }
