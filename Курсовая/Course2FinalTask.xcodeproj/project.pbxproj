@@ -31,6 +31,9 @@
 		CF5F0A8E253B7D960083BA5B /* FilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF5F0A8D253B7D960083BA5B /* FilterCell.swift */; };
 		CF5F0A90253B7DD20083BA5B /* FilterOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF5F0A8F253B7DD20083BA5B /* FilterOperation.swift */; };
 		CF5F0A92253B7E020083BA5B /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF5F0A91253B7E020083BA5B /* ShareViewController.swift */; };
+		CF660BB425E036ED0013F721 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF660BB325E036ED0013F721 /* APIManager.swift */; };
+		CF660BB825E040F90013F721 /* RequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF660BB725E040F90013F721 /* RequestManager.swift */; };
+		CF660BBB25E0416B0013F721 /* APIListManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF660BBA25E0416B0013F721 /* APIListManager.swift */; };
 		CF75675924CDB264005DD361 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF75675824CDB264005DD361 /* ProfileViewController.swift */; };
 		CF75675F24CDD08D005DD361 /* Followings.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF75675E24CDD08D005DD361 /* Followings.swift */; };
 		CF75676124CDD0A6005DD361 /* Followers.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF75676024CDD0A6005DD361 /* Followers.swift */; };
@@ -69,6 +72,9 @@
 		CF5F0A8D253B7D960083BA5B /* FilterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCell.swift; sourceTree = "<group>"; };
 		CF5F0A8F253B7DD20083BA5B /* FilterOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterOperation.swift; sourceTree = "<group>"; };
 		CF5F0A91253B7E020083BA5B /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
+		CF660BB325E036ED0013F721 /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
+		CF660BB725E040F90013F721 /* RequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestManager.swift; sourceTree = "<group>"; };
+		CF660BBA25E0416B0013F721 /* APIListManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIListManager.swift; sourceTree = "<group>"; };
 		CF75675824CDB264005DD361 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		CF75675E24CDD08D005DD361 /* Followings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Followings.swift; sourceTree = "<group>"; };
 		CF75676024CDD0A6005DD361 /* Followers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Followers.swift; sourceTree = "<group>"; };
@@ -207,7 +213,10 @@
 		CF280CC825DFF13800BD3DE5 /* API */ = {
 			isa = PBXGroup;
 			children = (
+				CF660BB325E036ED0013F721 /* APIManager.swift */,
 				CF280CDD25DFF6FC00BD3DE5 /* ErrorManager.swift */,
+				CF660BB725E040F90013F721 /* RequestManager.swift */,
+				CF660BBA25E0416B0013F721 /* APIListManager.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -248,7 +257,6 @@
 				BF2DD1DA444F38625B800AE8 /* Pods-Course2FinalTask.debug.xcconfig */,
 				A7B4262D0A4CED94D3B381BA /* Pods-Course2FinalTask.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -355,6 +363,7 @@
 				CF75676524CDF25B005DD361 /* User.swift in Sources */,
 				CF5F0A90253B7DD20083BA5B /* FilterOperation.swift in Sources */,
 				CF280CDE25DFF6FC00BD3DE5 /* ErrorManager.swift in Sources */,
+				CF660BB425E036ED0013F721 /* APIManager.swift in Sources */,
 				CF280CD125DFF3B200BD3DE5 /* PostID.swift in Sources */,
 				CF5DF2E924E0306B00EDC3D1 /* Feed.swift in Sources */,
 				CF5F0A8E253B7D960083BA5B /* FilterCell.swift in Sources */,
@@ -362,10 +371,12 @@
 				CF75676324CDF24B005DD361 /* Post.swift in Sources */,
 				CF5F0A92253B7E020083BA5B /* ShareViewController.swift in Sources */,
 				CF75676124CDD0A6005DD361 /* Followers.swift in Sources */,
+				CF660BB825E040F90013F721 /* RequestManager.swift in Sources */,
 				CF5DF2E524E0045E00EDC3D1 /* ProfileCell.swift in Sources */,
 				CF5F0A8C253B7D590083BA5B /* AddFilterViewController.swift in Sources */,
 				CF280CCB25DFF37000BD3DE5 /* CurrentUser.swift in Sources */,
 				CF280CDA25DFF3E600BD3DE5 /* Sign.swift in Sources */,
+				CF660BBB25E0416B0013F721 /* APIListManager.swift in Sources */,
 				CFD542DC24E45406006B7E84 /* FollowerCellTableViewCell.swift in Sources */,
 				74B79258202B3254006BCB41 /* AppDelegate.swift in Sources */,
 				CF5F0A85253B30750083BA5B /* BlockViewController.swift in Sources */,
