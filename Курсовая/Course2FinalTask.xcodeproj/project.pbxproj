@@ -15,6 +15,7 @@
 		CF280CD425DFF3C100BD3DE5 /* UserID.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF280CD325DFF3C100BD3DE5 /* UserID.swift */; };
 		CF280CD725DFF3CF00BD3DE5 /* NewPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF280CD625DFF3CF00BD3DE5 /* NewPost.swift */; };
 		CF280CDA25DFF3E600BD3DE5 /* Sign.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF280CD925DFF3E600BD3DE5 /* Sign.swift */; };
+		CF280CDE25DFF6FC00BD3DE5 /* ErrorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF280CDD25DFF6FC00BD3DE5 /* ErrorManager.swift */; };
 		CF5DF2E524E0045E00EDC3D1 /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF5DF2E324E0045E00EDC3D1 /* ProfileCell.swift */; };
 		CF5DF2E624E0045E00EDC3D1 /* ProfileCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF5DF2E424E0045E00EDC3D1 /* ProfileCell.xib */; };
 		CF5DF2E924E0306B00EDC3D1 /* Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF5DF2E724E0306B00EDC3D1 /* Feed.swift */; };
@@ -32,7 +33,7 @@
 		CF75675924CDB264005DD361 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF75675824CDB264005DD361 /* ProfileViewController.swift */; };
 		CF75675F24CDD08D005DD361 /* Followings.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF75675E24CDD08D005DD361 /* Followings.swift */; };
 		CF75676124CDD0A6005DD361 /* Followers.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF75676024CDD0A6005DD361 /* Followers.swift */; };
-		CF75676324CDF24B005DD361 /* Posts.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF75676224CDF24B005DD361 /* Posts.swift */; };
+		CF75676324CDF24B005DD361 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF75676224CDF24B005DD361 /* Post.swift */; };
 		CF75676524CDF25B005DD361 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF75676424CDF25B005DD361 /* User.swift */; };
 		CF7DC39624D9BB50007FB9DC /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CF7DC39524D9BB50007FB9DC /* Storyboard.storyboard */; };
 		CFD542DC24E45406006B7E84 /* FollowerCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD542DB24E45406006B7E84 /* FollowerCellTableViewCell.swift */; };
@@ -49,6 +50,7 @@
 		CF280CD325DFF3C100BD3DE5 /* UserID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserID.swift; sourceTree = "<group>"; };
 		CF280CD625DFF3CF00BD3DE5 /* NewPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPost.swift; sourceTree = "<group>"; };
 		CF280CD925DFF3E600BD3DE5 /* Sign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sign.swift; sourceTree = "<group>"; };
+		CF280CDD25DFF6FC00BD3DE5 /* ErrorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorManager.swift; sourceTree = "<group>"; };
 		CF5DF2E324E0045E00EDC3D1 /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
 		CF5DF2E424E0045E00EDC3D1 /* ProfileCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileCell.xib; sourceTree = "<group>"; };
 		CF5DF2E724E0306B00EDC3D1 /* Feed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feed.swift; sourceTree = "<group>"; };
@@ -66,7 +68,7 @@
 		CF75675824CDB264005DD361 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		CF75675E24CDD08D005DD361 /* Followings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Followings.swift; sourceTree = "<group>"; };
 		CF75676024CDD0A6005DD361 /* Followers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Followers.swift; sourceTree = "<group>"; };
-		CF75676224CDF24B005DD361 /* Posts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Posts.swift; sourceTree = "<group>"; };
+		CF75676224CDF24B005DD361 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		CF75676424CDF25B005DD361 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		CF7DC39524D9BB50007FB9DC /* Storyboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Storyboard.storyboard; path = ../../Storyboard.storyboard; sourceTree = "<group>"; };
 		CFD542DB24E45406006B7E84 /* FollowerCellTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowerCellTableViewCell.swift; sourceTree = "<group>"; };
@@ -190,6 +192,7 @@
 		CF280CC825DFF13800BD3DE5 /* API */ = {
 			isa = PBXGroup;
 			children = (
+				CF280CDD25DFF6FC00BD3DE5 /* ErrorManager.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -197,14 +200,14 @@
 		CF3C397F24DF06E300B4587B /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				CF75676224CDF24B005DD361 /* Posts.swift */,
-				CF75676424CDF25B005DD361 /* User.swift */,
-				CF280CCA25DFF37000BD3DE5 /* CurrentUser.swift */,
-				CF280CD625DFF3CF00BD3DE5 /* NewPost.swift */,
 				CF280CD925DFF3E600BD3DE5 /* Sign.swift */,
-				CF280CD325DFF3C100BD3DE5 /* UserID.swift */,
 				CF280CCD25DFF38F00BD3DE5 /* Token.swift */,
+				CF280CD325DFF3C100BD3DE5 /* UserID.swift */,
+				CF280CCA25DFF37000BD3DE5 /* CurrentUser.swift */,
+				CF75676424CDF25B005DD361 /* User.swift */,
 				CF280CD025DFF3B200BD3DE5 /* PostID.swift */,
+				CF280CD625DFF3CF00BD3DE5 /* NewPost.swift */,
+				CF75676224CDF24B005DD361 /* Post.swift */,
 				CF5F0A82253B30150083BA5B /* AllertViewController.swift */,
 				CF5F0A84253B30740083BA5B /* BlockViewController.swift */,
 			);
@@ -300,11 +303,12 @@
 			files = (
 				CF75676524CDF25B005DD361 /* User.swift in Sources */,
 				CF5F0A90253B7DD20083BA5B /* FilterOperation.swift in Sources */,
+				CF280CDE25DFF6FC00BD3DE5 /* ErrorManager.swift in Sources */,
 				CF280CD125DFF3B200BD3DE5 /* PostID.swift in Sources */,
 				CF5DF2E924E0306B00EDC3D1 /* Feed.swift in Sources */,
 				CF5F0A8E253B7D960083BA5B /* FilterCell.swift in Sources */,
 				CF75675924CDB264005DD361 /* ProfileViewController.swift in Sources */,
-				CF75676324CDF24B005DD361 /* Posts.swift in Sources */,
+				CF75676324CDF24B005DD361 /* Post.swift in Sources */,
 				CF5F0A92253B7E020083BA5B /* ShareViewController.swift in Sources */,
 				CF75676124CDD0A6005DD361 /* Followers.swift in Sources */,
 				CF5DF2E524E0045E00EDC3D1 /* ProfileCell.swift in Sources */,
