@@ -9,7 +9,6 @@
 
 
 import UIKit
-import DataProvider
 
 class ProfileCell: UICollectionViewCell {
     

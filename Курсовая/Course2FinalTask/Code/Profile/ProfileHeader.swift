@@ -7,8 +7,6 @@
 //
 
 import UIKit
-import DataProvider
-
 
 let identifierHeader = "ProfileHeaderCell"
 

@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import DataProvider
 
 let users = DataProviders.shared.usersDataProvider
 

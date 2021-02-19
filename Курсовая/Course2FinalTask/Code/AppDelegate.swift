@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import DataProvider
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

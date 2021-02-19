@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7484B05420441FD000BDE1A6 /* DataProvider.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7484B05320441FD000BDE1A6 /* DataProvider.framework */; };
 		74B79258202B3254006BCB41 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B79257202B3254006BCB41 /* AppDelegate.swift */; };
 		74B7925F202B3254006BCB41 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 74B7925E202B3254006BCB41 /* Assets.xcassets */; };
 		CF5DF2E524E0045E00EDC3D1 /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF5DF2E324E0045E00EDC3D1 /* ProfileCell.swift */; };
@@ -34,7 +33,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		7484B05320441FD000BDE1A6 /* DataProvider.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DataProvider.framework; sourceTree = "<group>"; };
 		74B79254202B3254006BCB41 /* Course2FinalTask.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Course2FinalTask.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		74B79257202B3254006BCB41 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		74B7925E202B3254006BCB41 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -67,7 +65,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7484B05420441FD000BDE1A6 /* DataProvider.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,7 +75,6 @@
 			isa = PBXGroup;
 			children = (
 				74B79256202B3254006BCB41 /* Course2FinalTask */,
-				7484B05320441FD000BDE1A6 /* DataProvider.framework */,
 				74B79255202B3254006BCB41 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -107,6 +103,8 @@
 			children = (
 				74B79257202B3254006BCB41 /* AppDelegate.swift */,
 				CF7DC39524D9BB50007FB9DC /* Storyboard.storyboard */,
+				CF280CC625DFF0EA00BD3DE5 /* AutorizationView */,
+				CF280CC825DFF13800BD3DE5 /* API */,
 				CF3C397F24DF06E300B4587B /* Model */,
 				CF04393E24DFE5C300A29B35 /* Feed */,
 				CF04394124DFE62600A29B35 /* Following */,
@@ -168,6 +166,20 @@
 				CFD542DB24E45406006B7E84 /* FollowerCellTableViewCell.swift */,
 			);
 			path = Following;
+			sourceTree = "<group>";
+		};
+		CF280CC625DFF0EA00BD3DE5 /* AutorizationView */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = AutorizationView;
+			sourceTree = "<group>";
+		};
+		CF280CC825DFF13800BD3DE5 /* API */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = API;
 			sourceTree = "<group>";
 		};
 		CF3C397F24DF06E300B4587B /* Model */ = {

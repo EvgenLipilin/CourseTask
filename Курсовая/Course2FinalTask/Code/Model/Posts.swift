@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import DataProvider
 
 let posts = DataProviders.shared.postsDataProvider
 

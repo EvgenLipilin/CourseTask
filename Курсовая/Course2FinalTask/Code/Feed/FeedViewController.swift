@@ -7,8 +7,6 @@
 //
 
 import UIKit
-import DataProvider
-
 
 class FeedViewController: UIViewController {
     
@@ -17,10 +15,10 @@ class FeedViewController: UIViewController {
     private let postClass = Posts()
     private lazy var block = BlockViewController(view: (tabBarController?.view)!)
     private lazy var alert = AlertViewController(view: self)
-    private var postsArray: [Post]?
-    private var currentUser: User?
+   // private var postsArray: [Post]?
+   // private var currentUser: User?
     private var usersLikedPost: [User]?
-    private var user: User?
+   // private var user: User?
     private let nibNameAndIdentifier = "FeedCell"
     private let storyboardName = "Storyboard"
     private let profileViewControllerIdentifier = "ProfileViewController"

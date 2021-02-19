@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import DataProvider
 
 
 let identifier = "FollowersCell"
