@@ -14,11 +14,10 @@ class FollowersTableViewController: UITableViewController {
     private var usersArray = [User]()
     private var titleName: String
     private var user: User
-    private lazy var block = BlockViewController(view: (tabBarController?.view)!)
     private lazy var alert = AlertViewController(view: self)
-    private let userClass = Users()
-    private let storyboardName = "Storyboard"
-    private let profileVCIdentifier = "ProfileViewController"
+    
+//    private let storyboardName = "Storyboard"
+//    private let profileVCIdentifier = "ProfileViewController"
     
     init(usersArray: [User], titleName: String, user: User) {
         self.usersArray = usersArray
@@ -65,8 +64,8 @@ class FollowersTableViewController: UITableViewController {
     
     //    Переход в профиль пользователя
     func goToUserProfile(user: User) {
-        let storyboard = UIStoryboard(name: storyboardName, bundle: nil)
-        guard let profileVC = storyboard.instantiateViewController(withIdentifier: profileVCIdentifier) as? ProfileViewController else { alert.createAlert {_ in}
+        let storyboard = UIStoryboard(name: "Storyboard", bundle: nil)
+        guard let profileVC = storyboard.instantiateViewController(withIdentifier: "ProfileViewController") as? ProfileViewController else { alert.createAlert(error: nil)
             return }
         profileVC.user = user
         show(profileVC, sender: nil)

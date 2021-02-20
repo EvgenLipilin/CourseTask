@@ -11,26 +11,19 @@ import UIKit
 class FeedViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
-    private let userClass = Users()
-    private let postClass = Posts()
+    
     private lazy var block = BlockViewController(view: (tabBarController?.view)!)
     private lazy var alert = AlertViewController(view: self)
-   // private var postsArray: [Post]?
-   // private var currentUser: User?
+    private var postsArray: [Post]?
     private var usersLikedPost: [User]?
-   // private var user: User?
-    private let nibNameAndIdentifier = "FeedCell"
-    private let storyboardName = "Storyboard"
-    private let profileViewControllerIdentifier = "ProfileViewController"
+    private var apiManger = APIListManager()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        createCurrentUser()
-        createPostsArrayWithBlock()
-        
         title = "Feed"
-        collectionView.register(UINib(nibName: "Feed", bundle: nil), forCellWithReuseIdentifier: nibNameAndIdentifier)
+        collectionView.register(UINib(nibName: "FeedCell", bundle: nil), forCellWithReuseIdentifier: "FeedCell")
         collectionView.dataSource = self
         collectionView.delegate = FeedCell() as? UICollectionViewDelegate
     }
@@ -40,58 +33,49 @@ class FeedViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
-        createPostsArrayWithBlock()
-        collectionView.scrollToItem(at: IndexPath(item: 0, section: 1), at: .top, animated: true)
-    }
-    
-    //    Создает карент пользователя
-    private func createCurrentUser() {
-        userClass.currentUser(queue: DispatchQueue.global()) { [weak self] user in
-            guard let self = self else { return }
-            guard user != nil else { self.alert.createAlert {_ in}
-                return }
-            DispatchQueue.main.async {
-                self.currentUser = user
-            }
-        }
+        createPostsArrayWithBlock(token: APIListManager.token)
     }
     
     //    Создает массив постов без блокировки UI для лайков
-    func createPostsArrayWithoutBlock() {
-        postClass.feed(queue: DispatchQueue.global()) { [weak self] (postsArray) in
+    func createPostsArrayWithoutBlock(token: String) {
+        apiManger.feed(token: token) { [weak self] (result) in
             guard let self = self else { return }
-            guard postsArray != nil else { self.alert.createAlert { _ in
-                self.postsArray = [] }
-                return }
-            DispatchQueue.main.async {
-                self.postsArray = postsArray
+            
+            switch result {
+            case .successfully(let posts):
+                self.postsArray = posts
                 self.collectionView.reloadData()
+                
+            case .failed(let error):
+                self.alert.createAlert(error: error)
             }
         }
     }
     
+    
     //    Создает массив постов с блокировкой UI
-    private func createPostsArrayWithBlock() {
+    private func createPostsArrayWithBlock(token: String) {
         block.startAnimating()
-        postClass.feed(queue: DispatchQueue.global()) { [weak self] (postsArray) in
+        apiManger.feed(token: token) { [weak self] (result) in
             guard let self = self else { return }
-            guard postsArray != nil else { self.alert.createAlert { _ in
-                self.postsArray = [] }
-                return }
-            DispatchQueue.main.async {
-                self.postsArray = postsArray
-                self.block.stopAnimating()
+            self.block.stopAnimating()
+            
+            switch result {
+            case .successfully(let posts):
+                self.postsArray = posts
                 self.collectionView.reloadData()
+                
+            case .failed(let error):
+                self.alert.createAlert(error: error)
             }
         }
     }
     
     //    Cоздание ViewCont и переход в профиль пользователя
     private func goToUserProfile(user: User) {
-        let storyboard = UIStoryboard(name: storyboardName, bundle: nil)
-        guard let profileVC = storyboard.instantiateViewController(withIdentifier: profileViewControllerIdentifier) as? ProfileViewController else { alert.createAlert {_ in}
+        let storyboard = UIStoryboard(name: "Storyboard", bundle: nil)
+        guard let profileVC = storyboard.instantiateViewController(withIdentifier: "ProfileViewController") as? ProfileViewController else { alert.createAlert(error: nil)
             return }
-        profileVC.currentUser = currentUser
         profileVC.user = user
         show(profileVC, sender: nil)
     }
@@ -107,7 +91,7 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: nibNameAndIdentifier, for: indexPath) as? FeedCell else { return UICollectionViewCell()}
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FeedCell", for: indexPath) as! FeedCell
         guard let array = postsArray else { return UICollectionViewCell() }
         let post = array[indexPath.item]
         cell.post = post
@@ -182,46 +166,46 @@ extension FeedViewController: LikeImageButtonDelegate {
     //    Открывает профиль пользователя при нажатии на его фото или имя в ленте постов
     func tapAvatarAndUserName(post: Post) {
         block.startAnimating()
-        self.userClass.user(with: post.author, queue: .global()) { [weak self] (user) in
+        
+        apiManger.userID(token: APIListManager.token, id: post.author) { [weak self] (result) in
             guard let self = self else { return }
-            guard user != nil else { self.alert.createAlert {_ in}
-                return }
-            self.user = user
-            DispatchQueue.main.async {
-                self.block.stopAnimating()
-                if let user = self.user {
-                    self.goToUserProfile(user: user)
-                }
+            self.block.stopAnimating()
+            
+            switch result {
+            case .successfully(let user):
+                self.goToUserProfile(user: user)
+                
+            case .failed(let error):
+                self.alert.createAlert(error: error)
             }
         }
-    }
-    
-    //    Метод проставки лайка по двойном нажатии на изображение поста
-    func tapBigLike(post: Post) {
-        postClass.likePost(with: post.id, queue: DispatchQueue.global()) { [weak self] (_) in
-            guard let self = self else { return }
-            DispatchQueue.main.async {
-                self.createPostsArrayWithoutBlock()
-            }
-        }
-    }
-    
-    //    Ставит или убирает лайк при нажатии на кнопку "сердце"
-    func tapLiked(post: Post) {
-        if post.currentUserLikesThisPost {
-            postClass.unlikePost(with: post.id, queue: DispatchQueue.global()) { [weak self] (_) in
+        
+        //    Метод проставки лайка по двойном нажатии на изображение поста
+        func tapBigLike(post: Post) {
+            apiManger.likePost(token: APIListManager.token, id: post.id) { [weak self] _ in
                 guard let self = self else { return }
-                DispatchQueue.main.async {
-                    self.createPostsArrayWithoutBlock()
-                }
+                
+                self.createPostsArrayWithoutBlock(token: APIListManager.token)
             }
-        } else {
-            postClass.likePost(with: post.id, queue: DispatchQueue.global()) { [weak self] (_) in
-                guard let self = self else { return }
-                DispatchQueue.main.async {
-                    self.createPostsArrayWithoutBlock()
+        }
+        
+        //    Ставит или убирает лайк при нажатии на кнопку "сердце"
+        func tapLiked(post: Post) {
+            
+            if post.currentUserLikesThisPost {
+                apiManger.unlikePost(token: APIListManager.token, id: post.id) { [weak self] _ in
+                    guard let self = self else { return }
+                    
+                    self.createPostsArrayWithoutBlock(token: APIListManager.token)
+                }
+            } else {
+                apiManger.likePost(token: APIListManager.token, id: post.id) { [weak self] _ in
+                    guard let self = self else { return }
+                    
+                    self.createPostsArrayWithoutBlock(token: APIListManager.token)
                 }
             }
         }
+        
     }
 }
