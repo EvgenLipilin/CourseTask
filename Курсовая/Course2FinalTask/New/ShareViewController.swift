@@ -8,10 +8,17 @@
 
 import UIKit
 
+protocol AddNewPostDelegate: AnyObject {
+    func updateFeedUI()
+}
+
 class ShareViewController: UIViewController {
     
     lazy var block = BlockViewController(view: (tabBarController?.view)!)
+    private lazy var alert = AlertViewController(view: self)
     private let inputPhoto: UIImage
+    private var apiManger = APIListManager()
+    weak var delegate: AddNewPostDelegate?
     
     private let photoImageView: UIImageView = {
         let imageView = UIImageView()
@@ -80,20 +87,20 @@ class ShareViewController: UIViewController {
     
     @objc private func tapShareButton() {
         block.startAnimating()
-        api.newPost(token: APIListManager.token, image: inputPhoto, description: textField.text ?? "") { [weak self] (result) in
+        apiManger.newPost(token: APIListManager.token, image: inputPhoto, description: textField.text ?? "") { [weak self] (result) in
             guard let self = self else { return }
             self.block.stopAnimating()
             
             switch result {
-            case .success(_):
+            case .successfully(_):
                 self.tabBarController?.selectedIndex = 0
                 self.navigationController?.popToRootViewController(animated: true)
                 let vc = FeedViewController()
-                self.delegate = vc
+                self.delegate = vc as! AddNewPostDelegate
                 self.delegate?.updateFeedUI()
                 print("All compleate")
                 
-            case .failure(let error):
+            case .failed(let error):
                 self.alert.createAlert(error: error)
             }
         }

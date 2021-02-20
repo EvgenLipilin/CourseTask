@@ -92,13 +92,17 @@ class ProfileViewController: UIViewController {
         
         block.startAnimating()
         guard self.user != nil else { return }
-        self.postClass.findPosts(by: self.user!.id, queue: .global()) { [weak self] (postsArray) in
+        apiManger.userPosts(token: APIListManager.token, id: user!.id) { [weak self] (result) in
             guard let self = self else { return }
-            guard postsArray != nil else { return }
-            self.postsOfCurrentUser = postsArray
-            DispatchQueue.main.async {
+            self.block.stopAnimating()
+            
+            switch result {
+            case .successfully(let post):
+                self.postsOfCurrentUser = post
                 self.collectionView.reloadData()
-                self.block.stopAnimating()
+                
+            case .failed(let error):
+                self.alert.createAlert(error: error)
             }
         }
     }
@@ -137,18 +141,17 @@ class ProfileViewController: UIViewController {
     @objc private func presentVCFollowing() {
         block.startAnimating()
         guard let user = user else { return }
-        userClass.usersFollowedByUser(with: user.id, queue: DispatchQueue.global()) { [weak self] (usersArray) in
+        apiManger.usersFollowers(token: APIListManager.token, id: user.id) { [weak self] (result) in
             guard let self = self else { return }
-            guard usersArray != nil else { self.alert.createAlert {_ in
-                self.usersFollowedByUser = []
-                }
-                return }
-            self.usersFollowedByUser = usersArray
-            if let array = self.usersFollowedByUser {
-                DispatchQueue.main.async {
-                    self.block.stopAnimating()
-                    self.navigationController?.pushViewController(FollowersTableViewController(usersArray: array, titleName: "Following", user: user), animated: true)
-                }
+            self.block.stopAnimating()
+            
+            switch result {
+            case .successfully(let users):
+                let vc = FollowersTableViewController(usersArray: users, titleName: "Followers")
+                self.navigationController?.pushViewController(vc, animated: true)
+                
+            case .failed(let error):
+                self.alert.createAlert(error: error)
             }
         }
     }
@@ -192,7 +195,6 @@ extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDel
         func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
             guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: identifierHeader, for: indexPath) as? ProfileHeaderCell else { return UICollectionReusableView() }
             guard let user = user else { return header }
-            header.currentUser = currentUser
             header.user = user
             header.createCell()
             header.delegate = self
@@ -209,28 +211,30 @@ extension ProfileViewController: FollowUnfollowDelegate {
     func tapFollowUnfollowButton(user: User) {
         
         if user.currentUserFollowsThisUser {
-            userClass.unfollow(user.id, queue: .global()) { (_) in
-                self.userClass.user(with: user.id, queue: .global()) { [weak self] (user) in
-                    guard let self = self else { return }
-                    guard let user = user else { self.alert.createAlert {_ in}
-                        return }
+            apiManger.unfollow(token: APIListManager.token, id: user.id) { [weak self] (result) in
+                guard let self = self else { return }
+                
+                switch result {
+                case .successfully(let user):
                     self.user = user
-                    DispatchQueue.main.async {
-                        self.collectionView.reloadData()
-                    }
+                    self.collectionView.reloadData()
+                    
+                case .failed(let error):
+                    self.alert.createAlert(error: error)
                 }
             }
             
         } else {
-            userClass.follow(user.id, queue: .global()) { (_) in
-                self.userClass.user(with: user.id, queue: .global()) { [weak self] (user) in
-                    guard let self = self else { return }
-                    guard let user = user else { self.alert.createAlert {_ in}
-                        return }
+            apiManger.follow(token: APIListManager.token, id: user.id) { [weak self] (result) in
+                guard let self = self else { return }
+                
+                switch result {
+                case .successfully(let user):
                     self.user = user
-                    DispatchQueue.main.async {
-                        self.collectionView.reloadData()
-                    }
+                    self.collectionView.reloadData()
+                    
+                case .failed(let error):
+                    self.alert.createAlert(error: error)
                 }
             }
         }

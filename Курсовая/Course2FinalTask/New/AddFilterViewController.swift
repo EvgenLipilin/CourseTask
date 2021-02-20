@@ -10,12 +10,11 @@ import UIKit
 
 class AddFilterViewController: UIViewController {
     
+    //    MARK: - Private Properties
     private var inputBigImage: UIImage
-    private var inputSmallImage: UIImage
     private lazy var alert = AlertViewController(view: self)
     private lazy var block = BlockViewController(view: (tabBarController?.view)!)
     private let queue = OperationQueue()
-    private let cellIdentifier = "cell"
     
     private let photoImageView: UIImageView = {
         let imageView = UIImageView()
@@ -35,6 +34,7 @@ class AddFilterViewController: UIViewController {
     
     private let arrayOfFilters = ["CIGaussianBlur", "CIMotionBlur", "CIColorInvert", "CISepiaTone", "CIPhotoEffectNoir"]
     
+    //    MARK: - Initializers
     init(bigImage: UIImage) {
         self.inputBigImage = bigImage
         super.init(nibName: nil, bundle: nil)
@@ -44,12 +44,14 @@ class AddFilterViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //    MARK: - Life Cycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         
         createUI()
     }
     
+    //    MARK: - Public Methods
     func createUI() {
         title = "Filters"
         view.backgroundColor = .white
@@ -74,6 +76,7 @@ class AddFilterViewController: UIViewController {
         NSLayoutConstraint.activate(constarints)
     }
     
+    //    MARK: - Private Methods
     @objc private func tapRightBarButton() {
         guard let image = photoImageView.image else { alert.createAlert(error: nil)
             return }
@@ -116,11 +119,9 @@ extension AddFilterViewController: UICollectionViewDataSource, UICollectionViewD
         
         let filter = arrayOfFilters[indexPath.item]
         block.startAnimating()
-        
         let operation = FilterOperation(image: inputBigImage, filter: filter)
         
-        operation.completionBlock = { [weak self] in
-            guard let self = self else { return }
+        operation.completionBlock = {
             DispatchQueue.main.async {
                 self.photoImageView.image = operation.outputImage ?? UIImage()
                 self.block.stopAnimating()

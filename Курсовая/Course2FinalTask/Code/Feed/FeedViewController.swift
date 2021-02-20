@@ -122,7 +122,20 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
 
 extension FeedViewController: LikeImageButtonDelegate {
     func tapLiked(post: Post) {
-        <#code#>
+        
+        if post.currentUserLikesThisPost {
+            apiManger.unlikePost(token: APIListManager.token, id: post.id) { [weak self] _ in
+                guard let self = self else { return }
+                
+                self.createPostsArrayWithoutBlock(token: APIListManager.token)
+            }
+        } else {
+            apiManger.likePost(token: APIListManager.token, id: post.id) { [weak self] _ in
+                guard let self = self else { return }
+                
+                self.createPostsArrayWithoutBlock(token: APIListManager.token)
+            }
+        }
     }
     
     func tapBigLike(post: Post) {
@@ -214,5 +227,10 @@ extension FeedViewController: LikeImageButtonDelegate {
             }
         }
         
+    }
+    //    Обновляет UI и скроллит в начало ленты при публикации новой фотографии
+    func updateFeedUI() {
+        createPostsArrayWithoutBlock(token: APIListManager.token)
+        collectionView.scrollToItem(at: IndexPath(item: 0, section: 1), at: .top, animated: true)
     }
 }
