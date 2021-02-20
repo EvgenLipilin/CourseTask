@@ -35,6 +35,7 @@
 		CF660BB825E040F90013F721 /* RequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF660BB725E040F90013F721 /* RequestManager.swift */; };
 		CF660BBB25E0416B0013F721 /* APIListManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF660BBA25E0416B0013F721 /* APIListManager.swift */; };
 		CF660BBE25E044CC0013F721 /* AutorizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF660BBD25E044CC0013F721 /* AutorizationViewController.swift */; };
+		CF660BC325E11E520013F721 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF660BC225E11E520013F721 /* TabBarController.swift */; };
 		CF75675924CDB264005DD361 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF75675824CDB264005DD361 /* ProfileViewController.swift */; };
 		CF75675F24CDD08D005DD361 /* Followings.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF75675E24CDD08D005DD361 /* Followings.swift */; };
 		CF75676124CDD0A6005DD361 /* Followers.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF75676024CDD0A6005DD361 /* Followers.swift */; };
@@ -77,6 +78,7 @@
 		CF660BB725E040F90013F721 /* RequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestManager.swift; sourceTree = "<group>"; };
 		CF660BBA25E0416B0013F721 /* APIListManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIListManager.swift; sourceTree = "<group>"; };
 		CF660BBD25E044CC0013F721 /* AutorizationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutorizationViewController.swift; sourceTree = "<group>"; };
+		CF660BC225E11E520013F721 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		CF75675824CDB264005DD361 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		CF75675E24CDD08D005DD361 /* Followings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Followings.swift; sourceTree = "<group>"; };
 		CF75676024CDD0A6005DD361 /* Followers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Followers.swift; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 		74B7927B202B3427006BCB41 /* Code */ = {
 			isa = PBXGroup;
 			children = (
+				CF660BC025E11E400013F721 /* TabBarController */,
 				74B79257202B3254006BCB41 /* AppDelegate.swift */,
 				CF7DC39524D9BB50007FB9DC /* Storyboard.storyboard */,
 				CF280CC625DFF0EA00BD3DE5 /* AutorizationView */,
@@ -252,6 +255,14 @@
 				CF5F0A91253B7E020083BA5B /* ShareViewController.swift */,
 			);
 			path = New;
+			sourceTree = "<group>";
+		};
+		CF660BC025E11E400013F721 /* TabBarController */ = {
+			isa = PBXGroup;
+			children = (
+				CF660BC225E11E520013F721 /* TabBarController.swift */,
+			);
+			path = TabBarController;
 			sourceTree = "<group>";
 		};
 		D5592B6311F75C023AD8EB25 /* Pods */ = {
@@ -378,6 +389,7 @@
 				CF660BBE25E044CC0013F721 /* AutorizationViewController.swift in Sources */,
 				CF5DF2E524E0045E00EDC3D1 /* ProfileCell.swift in Sources */,
 				CF5F0A8C253B7D590083BA5B /* AddFilterViewController.swift in Sources */,
+				CF660BC325E11E520013F721 /* TabBarController.swift in Sources */,
 				CF280CCB25DFF37000BD3DE5 /* CurrentUser.swift in Sources */,
 				CF280CDA25DFF3E600BD3DE5 /* Sign.swift in Sources */,
 				CF660BBB25E0416B0013F721 /* APIListManager.swift in Sources */,

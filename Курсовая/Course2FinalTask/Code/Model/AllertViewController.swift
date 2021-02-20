@@ -21,10 +21,10 @@ class AlertViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func createAlert(handler: @escaping (UIAlertAction) -> Void) {
+    func createAlert(error: Error?) {
         
         let alert = UIAlertController(title: "Unknown error!", message: "Please, try again later.", preferredStyle: .alert)
-        let action = UIAlertAction(title: "Ok", style: .cancel, handler: handler)
+        let action = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
         alert.addAction(action)
         inputViewControllers.present(alert, animated: true, completion: nil)
     }
