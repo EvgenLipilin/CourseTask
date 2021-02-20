@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 
 let identifier = "FollowersCell"
@@ -38,7 +39,9 @@ class FollowersCell: UITableViewCell {
     }
     
     func createCell(user: User) {
-        avatarImageView.image = user.avatar
+        
+        let url = URL(string: user.avatar)
+        avatarImageView.kf.setImage(with: url)
         nameLabel.text = user.username
     }
     

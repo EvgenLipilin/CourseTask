@@ -10,7 +10,6 @@ import UIKit
 
 class ShareViewController: UIViewController {
     
-    private let postClass = Posts()
     lazy var block = BlockViewController(view: (tabBarController?.view)!)
     private let inputPhoto: UIImage
     
@@ -81,12 +80,21 @@ class ShareViewController: UIViewController {
     
     @objc private func tapShareButton() {
         block.startAnimating()
-        postClass.newPost(with: inputPhoto, description: textField.text ?? "", queue: .global()) { [weak self] (_) in
+        api.newPost(token: APIListManager.token, image: inputPhoto, description: textField.text ?? "") { [weak self] (result) in
             guard let self = self else { return }
-            DispatchQueue.main.async {
-                self.block.stopAnimating()
+            self.block.stopAnimating()
+            
+            switch result {
+            case .success(_):
                 self.tabBarController?.selectedIndex = 0
-                self.navigationController?.popToRootViewController(animated: false)
+                self.navigationController?.popToRootViewController(animated: true)
+                let vc = FeedViewController()
+                self.delegate = vc
+                self.delegate?.updateFeedUI()
+                print("All compleate")
+                
+            case .failure(let error):
+                self.alert.createAlert(error: error)
             }
         }
     }

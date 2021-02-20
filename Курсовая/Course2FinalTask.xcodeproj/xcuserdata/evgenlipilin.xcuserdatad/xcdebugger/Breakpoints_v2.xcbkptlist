@@ -33,8 +33,8 @@
             filePath = "Course2FinalTask/Code/Feed/Feed.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "87"
-            endingLineNumber = "87"
+            startingLineNumber = "98"
+            endingLineNumber = "98"
             landmarkName = "addGesture()"
             landmarkType = "7">
          </BreakpointContent>

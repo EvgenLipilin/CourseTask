@@ -35,9 +35,8 @@ class AddFilterViewController: UIViewController {
     
     private let arrayOfFilters = ["CIGaussianBlur", "CIMotionBlur", "CIColorInvert", "CISepiaTone", "CIPhotoEffectNoir"]
     
-    init(bigImage: UIImage, smallImage: UIImage) {
+    init(bigImage: UIImage) {
         self.inputBigImage = bigImage
-        self.inputSmallImage = smallImage
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -76,9 +75,10 @@ class AddFilterViewController: UIViewController {
     }
     
     @objc private func tapRightBarButton() {
-        guard let image = photoImageView.image else { alert.createAlert {_ in }
+        guard let image = photoImageView.image else { alert.createAlert(error: nil)
             return }
-        navigationController?.pushViewController(ShareViewController(image: image), animated: true)
+        let vc = ShareViewController(image: image)
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 
@@ -103,10 +103,10 @@ extension AddFilterViewController: UICollectionViewDataSource, UICollectionViewD
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as? FilterCell else { alert.createAlert {_ in}
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? FilterCell else { alert.createAlert(error: nil)
             return UICollectionViewCell() }
         let nameFilter = arrayOfFilters[indexPath.item]
-        cell.createCell(name: nameFilter, image: inputSmallImage)
+        cell.createCell(name: nameFilter, image: inputBigImage)
         
         return cell
     }

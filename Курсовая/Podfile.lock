@@ -1,3 +1,16 @@
-PODFILE CHECKSUM: 1c6f08a9ec5ccc309555dd4968f6a5d083562038
+PODS:
+  - Kingfisher (4.10.1)
+
+DEPENDENCIES:
+  - Kingfisher (~> 4.0)
+
+SPEC REPOS:
+  trunk:
+    - Kingfisher
+
+SPEC CHECKSUMS:
+  Kingfisher: c148cd7b47ebde9989f6bc7c27dcaa79d81279a0
+
+PODFILE CHECKSUM: 78bea9e7965da08a0ae7f197a993423a9a38fd18
 
 COCOAPODS: 1.10.0

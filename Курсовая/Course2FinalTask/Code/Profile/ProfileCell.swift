@@ -9,13 +9,15 @@
 
 
 import UIKit
+import Kingfisher
 
 class ProfileCell: UICollectionViewCell {
     
     @IBOutlet weak var postImage: UIImageView!
     
     func setupCell(post: Post) {
-        postImage.image = post.image
+        let url = URL(string: post.image)!
+        postImage.kf.setImage(with: url)
     }
 }
 

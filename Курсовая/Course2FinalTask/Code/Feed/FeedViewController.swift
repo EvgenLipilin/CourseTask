@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class FeedViewController: UIViewController {
     
@@ -120,23 +121,36 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
 
 
 extension FeedViewController: LikeImageButtonDelegate {
+    func tapLiked(post: Post) {
+        <#code#>
+    }
+    
+    func tapBigLike(post: Post) {
+        apiManger.likePost(token: APIListManager.token, id: post.id) { [weak self] _ in
+            guard let self = self else { return }
+            
+            self.createPostsArrayWithoutBlock(token: APIListManager.token)
+        }
+    }
+    
     
     //Показывает всех лайкнушвших пост юзеров
     func likesLabelTapped(post: Post) {
         
         block.startAnimating()
-        self.userClass.user(with: post.author, queue: .global()) { [weak self] (user) in
+        apiManger.usersLikedPost(token: APIListManager.token, id: post.id, completion: { [weak self] (result) in
             guard let self = self else { return }
-            guard user != nil else { self.alert.createAlert {_ in}
-                return }
-            self.user = user
-            DispatchQueue.main.async {
+            
+            switch result {
+            case .successfully(let users):
                 self.block.stopAnimating()
-                if let user = self.user {
-                    self.goToUserProfile(user: user)
-                }
+                let vc = FollowersTableViewController(usersArray: users, titleName: "Likes")
+                self.navigationController?.pushViewController(vc, animated: true)
+                
+            case .failed(let error):
+                self.alert.createAlert(error: error)
             }
-        }
+        })
     }
     
     //    Создает массив пользователей, которые лайкнули публикацию и показывает их
@@ -181,13 +195,6 @@ extension FeedViewController: LikeImageButtonDelegate {
         }
         
         //    Метод проставки лайка по двойном нажатии на изображение поста
-        func tapBigLike(post: Post) {
-            apiManger.likePost(token: APIListManager.token, id: post.id) { [weak self] _ in
-                guard let self = self else { return }
-                
-                self.createPostsArrayWithoutBlock(token: APIListManager.token)
-            }
-        }
         
         //    Ставит или убирает лайк при нажатии на кнопку "сердце"
         func tapLiked(post: Post) {

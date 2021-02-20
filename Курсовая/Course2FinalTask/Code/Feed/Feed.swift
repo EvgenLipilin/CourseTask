@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Kingfisher
+
 
 protocol LikeImageButtonDelegate: AnyObject {
     
@@ -55,16 +57,25 @@ class FeedCell: UICollectionViewCell {
     
     
     func setupCell() {
-        avatar.image = post?.authorAvatar
-        imageFeed.image = post?.image
         
-        userName.text = post?.authorUsername
-        dateFormatter.dateFormat = dateFormat
-        datePost.text = dateFormatter.string(from: post?.createdTime ?? Date())
+        guard let post = post else {return}
         
-        labelLike.text = "Likes: \(post?.likedByCount ?? 0)"
+        let urlAvatar = URL(string: post.authorAvatar)!
+        avatar.kf.setImage(with: urlAvatar)
         
-        commentLabel.text = post?.description
+        let urlPost = URL(string: post.image)!
+        imageFeed.kf.setImage(with: urlPost)
+        
+//        avatar.image = post?.authorAvatar
+//        imageFeed.image = post?.image
+        
+//        userName.text = post?.authorUsername
+//        dateFormatter.dateFormat = dateFormat
+//        datePost.text = dateFormatter.string(from: post?.createdTime ?? Date())
+//
+//        labelLike.text = "Likes: \(post?.likedByCount ?? 0)"
+//
+//        commentLabel.text = post?.description
         
         heartButton.setImage(#imageLiteral(resourceName: "like"), for: .normal)
         heartButton.addTarget(self, action: #selector(tap), for: .touchUpInside)

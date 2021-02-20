@@ -13,16 +13,12 @@ class FollowersTableViewController: UITableViewController {
     
     private var usersArray = [User]()
     private var titleName: String
-    private var user: User
     private lazy var alert = AlertViewController(view: self)
     
-//    private let storyboardName = "Storyboard"
-//    private let profileVCIdentifier = "ProfileViewController"
     
-    init(usersArray: [User], titleName: String, user: User) {
+    init(usersArray: [User], titleName: String) {
         self.usersArray = usersArray
         self.titleName = titleName
-        self.user = user
         super.init(style: .plain)
     }
     

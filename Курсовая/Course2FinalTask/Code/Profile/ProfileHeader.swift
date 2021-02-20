@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 let identifierHeader = "ProfileHeaderCell"
 
@@ -94,7 +95,8 @@ class ProfileHeaderCell: UICollectionViewCell {
         nameLabel.text = user.fullName
         followersButton.setTitle("Followers: \(user.followedByCount)", for: .normal)
         followingButton.setTitle("Following: \(user.followsCount)", for: .normal)
-        avatarImageView.image = user.avatar
+        let url = URL(string: user.avatar)
+        avatarImageView.kf.setImage(with: url)
         
         followUnfollowButton.addTarget(self, action: #selector(tapFollowUnfollow), for: .touchUpInside)
     }

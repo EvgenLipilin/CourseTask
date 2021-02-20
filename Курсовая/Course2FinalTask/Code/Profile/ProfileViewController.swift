@@ -11,23 +11,20 @@ class ProfileViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
-    private let userClass = Users()
-    private let postClass = Posts()
     private lazy var block = BlockViewController(view: (tabBarController?.view)!)
     private lazy var alert = AlertViewController(view: self)
-    var user: User?
-    var currentUser: User?
-    private var usersFollowingUser: [User]?
-    private var usersFollowedByUser: [User]?
     private var postsOfCurrentUser: [Post]?
-    private let nibNameAndIdentifier = "ProfileCell"
+    private let apiManger = APIListManager()
+    private var appDelegate = AppDelegate.shared
+    
+    var user: User?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         createCurrentUserAndPosts()
         
-        collectionView.register(UINib(nibName: nibNameAndIdentifier, bundle: nil), forCellWithReuseIdentifier: nibNameAndIdentifier)
+        collectionView.register(UINib(nibName: "ProfileCell", bundle: nil), forCellWithReuseIdentifier: "ProfileCell")
         collectionView.register(ProfileHeaderCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: identifierHeader)
         
         collectionView.dataSource = self
@@ -47,18 +44,23 @@ class ProfileViewController: UIViewController {
         //Создает профиль текущего пользователя
         if self.user == nil {
             block.startAnimating()
-            self.userClass.currentUser(queue: .global()) { [weak self] (user) in
+            self.apiManger.currentUser(token: APIListManager.token) { [weak self] (result) in
                 guard let self = self else { return }
-                guard user != nil else { return }
-                self.currentUser = user
-                self.user = user
-                DispatchQueue.main.async {
-                    self.navigationItem.title = self.user?.username
+                self.block.stopAnimating()
+                
+                switch result {
+                case .successfully(let user):
+                    self.user = user
+                    self.navigationItem.title = user.username
                     self.createPostsArray()
+                    self.addLogoutButton()
+                    
+                case .failed(let error):
+                    self.alert.createAlert(error: error)
                 }
             }
             
-            // Создание профилей других пользователей
+            //        Для создания профилей других пользователей
         } else {
             DispatchQueue.main.async {
                 self.navigationItem.title = self.user?.username
@@ -66,6 +68,24 @@ class ProfileViewController: UIViewController {
             createPostsArray()
         }
     }
+    
+    //    Проверка отображать ли кнопку Log out
+        private func addLogoutButton() {
+            if user?.username == "ivan1975" {
+                navigationItem.setRightBarButton(UIBarButtonItem(title: "Log out", style: .plain, target: self, action: #selector(logoutPressed)), animated: true)
+            }
+        }
+    
+    //    Выход из профиля
+        @objc private func logoutPressed() {
+            apiManger.signout(token: APIListManager.token) { [weak self] _ in
+                guard let self = self else { return }
+
+                APIListManager.token = ""
+                    self.appDelegate.window?.rootViewController = AutorizationViewController()
+            }
+        }
+
     
     //Создание массива постов
     private func createPostsArray() {
@@ -93,15 +113,17 @@ class ProfileViewController: UIViewController {
         
         block.startAnimating()
         guard let user = user else { return }
-        userClass.usersFollowingUser(with: user.id , queue: .global()) { [weak self] (usersArray) in
+        apiManger.usersFollowing(token: APIListManager.token, id: user.id) { [weak self] (result) in
             guard let self = self else { return }
-            guard usersArray != nil else { return }
-            self.usersFollowingUser = usersArray
-            if let array = self.usersFollowingUser {
-                DispatchQueue.main.async {
-                    self.block.stopAnimating()
-                    self.navigationController?.pushViewController(FollowersTableViewController(usersArray: array, titleName: "Followers", user: user), animated: true)
-                }
+            self.block.stopAnimating()
+            
+            switch result {
+            case .successfully(let users):
+                let vc = FollowersTableViewController(usersArray: users, titleName: "Followers")
+                self.navigationController?.pushViewController(vc, animated: true)
+                
+            case .failed(let error):
+                self.alert.createAlert(error: error)
             }
         }
     }
@@ -146,8 +168,9 @@ extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDel
         
         func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
             
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: nibNameAndIdentifier, for: indexPath) as? ProfileCell else { return UICollectionViewCell()}
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProfileCell", for: indexPath) as! ProfileCell
             guard let posts = postsOfCurrentUser else { return UICollectionViewCell() }
+            
             
             let post = posts[indexPath.item]
             cell.setupCell(post: post)
