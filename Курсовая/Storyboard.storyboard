@@ -178,7 +178,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="dZX-YR-kvD">
             <objects>
-                <tabBarController id="Zux-2i-gl1" customClass="TabBarController" customModule="Course2FinalTask" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="TabBar" id="Zux-2i-gl1" customClass="TabBarController" customModule="Course2FinalTask" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="fiB-fV-V2G">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>

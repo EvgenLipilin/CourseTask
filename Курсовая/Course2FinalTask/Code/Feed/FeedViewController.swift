@@ -24,7 +24,7 @@ import Kingfisher
             super.viewDidLoad()
             
             title = "Feed"
-            collectionView.register(UINib(nibName: "FeedCell", bundle: nil), forCellWithReuseIdentifier: "FeedCell")
+            collectionView.register(UINib(nibName: "Feed", bundle: nil), forCellWithReuseIdentifier: "FeedCell")
             collectionView.dataSource = self
             collectionView.delegate = self
             
@@ -46,11 +46,11 @@ import Kingfisher
                 guard let self = self else { return }
                 
                 switch result {
-                case .successfully(let posts):
+                case .success(let posts):
                     self.postsArray = posts
                     self.collectionView.reloadData()
                     
-                case .failed(let error):
+                case .failure(let error):
                     self.alert.createAlert(error: error)
                 }
             }
@@ -64,11 +64,11 @@ import Kingfisher
                 self.block.stopAnimating()
                 
                 switch result {
-                case .successfully(let posts):
+                case .success(let posts):
                     self.postsArray = posts
                     self.collectionView.reloadData()
                     
-                case .failed(let error):
+                case .failure(let error):
                     self.alert.createAlert(error: error)
                 }
             }
@@ -123,12 +123,12 @@ import Kingfisher
                 guard let self = self else { return }
                 
                 switch result {
-                case .successfully(let users):
+                case .success(let users):
                     self.block.stopAnimating()
                     let vc = FollowersTableViewController(usersArray: users, titleName: "Likes")
                     self.navigationController?.pushViewController(vc, animated: true)
                     
-                case .failed(let error):
+                case .failure(let error):
                     self.alert.createAlert(error: error)
                 }
             })
@@ -143,10 +143,10 @@ import Kingfisher
                 self.block.stopAnimating()
                 
                 switch result {
-                case .successfully(let user):
+                case .success(let user):
                     self.goToUserProfile(user: user)
                     
-                case .failed(let error):
+                case .failure(let error):
                     self.alert.createAlert(error: error)
                 }
             }

@@ -49,13 +49,13 @@ class ProfileViewController: UIViewController {
                 self.block.stopAnimating()
                 
                 switch result {
-                case .successfully(let user):
+                case .success(let user):
                     self.user = user
                     self.navigationItem.title = user.username
                     self.createPostsArray()
                     self.addLogoutButton()
                     
-                case .failed(let error):
+                case .failure(let error):
                     self.alert.createAlert(error: error)
                 }
             }
@@ -97,11 +97,11 @@ class ProfileViewController: UIViewController {
             self.block.stopAnimating()
             
             switch result {
-            case .successfully(let post):
+            case .success(let post):
                 self.postsOfCurrentUser = post
                 self.collectionView.reloadData()
                 
-            case .failed(let error):
+            case .failure(let error):
                 self.alert.createAlert(error: error)
             }
         }
@@ -122,11 +122,11 @@ class ProfileViewController: UIViewController {
             self.block.stopAnimating()
             
             switch result {
-            case .successfully(let users):
+            case .success(let users):
                 let vc = FollowersTableViewController(usersArray: users, titleName: "Followers")
                 self.navigationController?.pushViewController(vc, animated: true)
                 
-            case .failed(let error):
+            case .failure(let error):
                 self.alert.createAlert(error: error)
             }
         }
@@ -146,11 +146,11 @@ class ProfileViewController: UIViewController {
             self.block.stopAnimating()
             
             switch result {
-            case .successfully(let users):
+            case .success(let users):
                 let vc = FollowersTableViewController(usersArray: users, titleName: "Followers")
                 self.navigationController?.pushViewController(vc, animated: true)
                 
-            case .failed(let error):
+            case .failure(let error):
                 self.alert.createAlert(error: error)
             }
         }
@@ -215,11 +215,11 @@ extension ProfileViewController: FollowUnfollowDelegate {
                 guard let self = self else { return }
                 
                 switch result {
-                case .successfully(let user):
+                case .success(let user):
                     self.user = user
                     self.collectionView.reloadData()
                     
-                case .failed(let error):
+                case .failure(let error):
                     self.alert.createAlert(error: error)
                 }
             }
@@ -229,11 +229,11 @@ extension ProfileViewController: FollowUnfollowDelegate {
                 guard let self = self else { return }
                 
                 switch result {
-                case .successfully(let user):
+                case .success(let user):
                     self.user = user
                     self.collectionView.reloadData()
                     
-                case .failed(let error):
+                case .failure(let error):
                     self.alert.createAlert(error: error)
                 }
             }

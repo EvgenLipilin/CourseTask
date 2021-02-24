@@ -92,7 +92,7 @@ class ShareViewController: UIViewController {
             self.block.stopAnimating()
             
             switch result {
-            case .successfully(_):
+            case .success(_):
                 self.tabBarController?.selectedIndex = 0
                 self.navigationController?.popToRootViewController(animated: true)
                 let vc = FeedViewController()
@@ -100,7 +100,7 @@ class ShareViewController: UIViewController {
                 self.delegate?.updateFeedUI()
                 print("All compleate")
                 
-            case .failed(let error):
+            case .failure(let error):
                 self.alert.createAlert(error: error)
             }
         }

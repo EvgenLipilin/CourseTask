@@ -25,24 +25,24 @@ class FeedCell: UICollectionViewCell {
     private let dateFormatter = DateFormatter()
     var post: Post? {
         didSet {
-            likesButton.setTitle("Likes: \(post?.likedByCount ?? 0)", for: .normal)
+            heartButton.setTitle("Likes: \(post?.likedByCount ?? 0)", for: .normal)
             liked = post?.currentUserLikesThisPost ?? false
         }
     }
     
     private var liked: Bool = false {
         didSet {
-            likesImageButton.tintColor = liked == true ? self.tintColor : .lightGray
+            heartButton.tintColor = liked == true ? self.tintColor : .lightGray
         }
     }
     
-    @IBOutlet weak var avatarImage: UIImageView!
-    @IBOutlet weak var postImage: UIImageView!
-    @IBOutlet weak var userNameLabel: UILabel!
-    @IBOutlet weak var postDateLabel: UILabel!
-    @IBOutlet weak var descriptionLabel: UILabel!
-    @IBOutlet weak var likesButton: UIButton!
-    @IBOutlet weak var likesImageButton: UIButton!
+    @IBOutlet weak var avatar: UIImageView!
+    @IBOutlet weak var imageFeed: UIImageView!
+    @IBOutlet weak var userName: UILabel!
+    @IBOutlet weak var datePost: UILabel!
+    @IBOutlet weak var commentLabel: UILabel!
+    @IBOutlet weak var labelLike: UIButton!
+    @IBOutlet weak var heartButton: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -54,41 +54,41 @@ class FeedCell: UICollectionViewCell {
         
         guard let post = post else { return }
         let urlAvatar = URL(string: post.authorAvatar)!
-        avatarImage.kf.setImage(with: urlAvatar)
+        avatar.kf.setImage(with: urlAvatar)
         
         let urlPost = URL(string: post.image)!
-        postImage.kf.setImage(with: urlPost)
+        imageFeed.kf.setImage(with: urlPost)
         
-        userNameLabel.text = post.authorUsername
+        userName.text = post.authorUsername
 
         dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .medium
         dateFormatter.doesRelativeDateFormatting = true
-        postDateLabel.text = dateFormatter.string(from: post.createdTime)
+        datePost.text = dateFormatter.string(from: post.createdTime)
         
-        likesButton.setTitleColor(.black, for: .normal)
-        likesButton.addTarget(self, action: #selector(tapLikesButton), for: .touchUpInside)
+        heartButton.setTitleColor(.black, for: .normal)
+        heartButton.addTarget(self, action: #selector(tapLikesButton), for: .touchUpInside)
         
-        descriptionLabel.text = post.description
+        commentLabel.text = post.description
         
-        likesImageButton.setImage(#imageLiteral(resourceName: "like"), for: .normal)
-        likesImageButton.addTarget(self, action: #selector(tap), for: .touchUpInside)
+        heartButton.setImage(#imageLiteral(resourceName: "like"), for: .normal)
+        heartButton.addTarget(self, action: #selector(tap), for: .touchUpInside)
     }
     
     //    MARK: - Private Methods
     private func addGesture() {
         let postImageGesture = UITapGestureRecognizer(target: self, action: #selector(bigLike(sender:)))
         postImageGesture.numberOfTapsRequired = 2
-        postImage.isUserInteractionEnabled = true
-        postImage.addGestureRecognizer(postImageGesture)
+        imageFeed.isUserInteractionEnabled = true
+        imageFeed.addGestureRecognizer(postImageGesture)
         
         let avatarAndGesture = UITapGestureRecognizer(target: self, action: #selector(tapAvatarAndUserName))
-        avatarImage.isUserInteractionEnabled = true
-        avatarImage.addGestureRecognizer(avatarAndGesture)
+        avatar.isUserInteractionEnabled = true
+        avatar.addGestureRecognizer(avatarAndGesture)
         
         let userNameGesture = UITapGestureRecognizer(target: self, action: #selector(tapAvatarAndUserName))
-        userNameLabel.isUserInteractionEnabled = true
-        userNameLabel.addGestureRecognizer(userNameGesture)
+        userName.isUserInteractionEnabled = true
+        userName.addGestureRecognizer(userNameGesture)
     }
     
     @objc private func tap() {
@@ -104,7 +104,7 @@ class FeedCell: UICollectionViewCell {
     private func showBihLike(completion: @escaping () -> Void) {
         let likeImage = UIImage(named: "bigLike")
         let likeView = UIImageView(image: likeImage)
-        likeView.center = postImage.center
+        likeView.center = imageFeed.center
         likeView.layer.opacity = 0
         addSubview(likeView)
         

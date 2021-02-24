@@ -9,29 +9,29 @@
 import Foundation
 import UIKit
 
-typealias JSONDataTask = URLSessionTask
+typealias JSONTask = URLSessionDataTask
 typealias JSONCompletionHandler = (Data?, HTTPURLResponse?, Error?) -> Void
 
 enum APIResult<T> {
-    case successfully(T)
-    case failed(Error)
+    case success(T)
+    case failure(Error)
 }
 
 protocol APIManager {
-    var sessionConfig: URLSessionConfiguration {get}
-    var session: URLSession {get}
+    var sessionConfiguration: URLSessionConfiguration { get }
+    var session: URLSession { get }
     
     func fetch<T: Codable>(request: URLRequest, completionHandler: @escaping (APIResult<T>) -> Void)
 }
 
 extension APIManager {
     
-    private func JSONTask(request: URLRequest, completionHandler: @escaping JSONCompletionHandler) -> JSONDataTask {
+    private func JSONTask(request: URLRequest, completionHandler: @escaping JSONCompletionHandler) -> JSONTask {
         
         let dataTask = session.dataTask(with: request) { (data, response, error) in
             
             guard let HTTPResponse = response as? HTTPURLResponse else {
-                
+
                 let error = NSError()
                 completionHandler(nil, nil ,error)
                 return
@@ -51,7 +51,7 @@ extension APIManager {
                 case 422: error = .unprocessable
                 default: error = .transferError
                 }
-                
+
                 completionHandler(nil, HTTPResponse, error)
             }
         }
@@ -65,21 +65,22 @@ extension APIManager {
             DispatchQueue.main.async {
                 guard let data = data else {
                     if let error = error {
-                        completionHandler(.failed(error))
+                        completionHandler(.failure(error))
                     }
                     return
                 }
                 
                 if data.isEmpty {
+//                    Для logout, так как там нет JSON
                     let error = NSError()
-                    completionHandler(.failed(error))
+                    completionHandler(.failure(error))
                 }
                 
                 if let value = decodeJSON(type: T.self, from: data) {
-                    completionHandler(.successfully(value))
+                    completionHandler(.success(value))
                 } else {
                     let error = NSError()
-                    completionHandler(.failed(error))
+                    completionHandler(.failure(error))
                 }
             }
         }

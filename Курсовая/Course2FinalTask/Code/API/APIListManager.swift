@@ -11,15 +11,15 @@ import UIKit
 
 final class APIListManager: APIManager, RequestManager {
     
-    let sessionConfig: URLSessionConfiguration
+    let sessionConfiguration: URLSessionConfiguration
     lazy var session: URLSession = {
-        return URLSession(configuration: self.sessionConfig)
+        return URLSession(configuration: self.sessionConfiguration)
     }()
     
     static var token = ""
     
     init(sessionConfiguration: URLSessionConfiguration) {
-        self.sessionConfig = sessionConfiguration
+        self.sessionConfiguration = sessionConfiguration
     }
     
     convenience init () {
@@ -76,7 +76,7 @@ final class APIListManager: APIManager, RequestManager {
         let request = usersFollowingRequest(token: token, id: id)
         fetch(request: request, completionHandler: completion)
     }
-    
+     
     func usersFollowers(token: String, id: String, completion: @escaping (APIResult<[User]>) -> Void) {
         let request = usersFollowersRequest(token: token, id: id)
         fetch(request: request, completionHandler: completion)
@@ -97,5 +97,3 @@ final class APIListManager: APIManager, RequestManager {
         fetch(request: request, completionHandler: completion)
     }
 }
-
-

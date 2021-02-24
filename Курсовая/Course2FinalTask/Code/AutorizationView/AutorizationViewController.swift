@@ -9,13 +9,14 @@
 import Foundation
 import UIKit
 
-class AutorizationViewController: UIViewController {
+final class AutorizationViewController: UIViewController {
     
-    var appDelegate = AppDelegate.shared
-    var apiManager = APIListManager()
-    lazy var alert = AlertViewController(view: self)
+    //    MARK: - Private Properties
+    private var appDelegate = AppDelegate.shared
+    private var apiManager = APIListManager()
+    private lazy var alert = AlertViewController(view: self)
     
-    var loginText: UITextField = {
+    private lazy var loginText: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.placeholder = "Login"
@@ -26,25 +27,29 @@ class AutorizationViewController: UIViewController {
         textField.autocapitalizationType = .none
         textField.returnKeyType = .next
         textField.enablesReturnKeyAutomatically = true
+        textField.delegate = self
+        textField.addTarget(self, action: #selector(inputText), for: .editingChanged)
         return textField
     }()
     
-    var passwordText: UITextField = {
-        let passField = UITextField()
-        passField.translatesAutoresizingMaskIntoConstraints = false
-        passField.placeholder = "Password"
-        passField.textContentType = .password
-        passField.keyboardType = .asciiCapable
-        passField.borderStyle = .roundedRect
-        passField.font = .systemFont(ofSize: 14)
-        passField.isSecureTextEntry = true
-        passField.autocapitalizationType = .none
-        passField.returnKeyType = .send
-        passField.enablesReturnKeyAutomatically = true
-        return passField
+    private lazy var passwordText: UITextField = {
+        let textField = UITextField()
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.placeholder = "Password"
+        textField.textContentType = .password
+        textField.keyboardType = .asciiCapable
+        textField.borderStyle = .roundedRect
+        textField.font = .systemFont(ofSize: 14)
+        textField.isSecureTextEntry = true
+        textField.autocapitalizationType = .none
+        textField.returnKeyType = .send
+        textField.enablesReturnKeyAutomatically = true
+        textField.delegate = self
+        textField.addTarget(self, action: #selector(inputText), for: .editingChanged)
+        return textField
     }()
     
-    var loginButton: UIButton = {
+    private lazy var loginButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = 5
@@ -54,77 +59,80 @@ class AutorizationViewController: UIViewController {
         button.titleLabel?.font = .systemFont(ofSize: 15)
         button.setTitleColor(.white, for: .normal)
         button.isEnabled = false
+        button.addTarget(self, action: #selector(signinPressed), for: .touchUpInside)
         return button
     }()
     
+    // MARK: - Life Cycles Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        settingUI()
+        
+        createUI()
     }
     
-    func settingUI() {
+    //    MARK: - Private Methods
+    private func createUI() {
         view.backgroundColor = .white
-        let elements = [loginText,passwordText,loginButton]
+        let elements = [loginText, passwordText, loginButton]
+        
         elements.forEach { (element) in
             view.addSubview(element)
         }
-        let constraints = [ loginText.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30),
-                            loginText.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-                            loginText.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-                            
-                            passwordText.topAnchor.constraint(equalTo: loginText.bottomAnchor, constant: 8),
-                            passwordText.leadingAnchor.constraint(equalTo: loginText.leadingAnchor),
-                            passwordText.trailingAnchor.constraint(equalTo: loginText.trailingAnchor),
-                            passwordText.heightAnchor.constraint(equalToConstant: 40 ),
-                            
-                            loginButton.topAnchor.constraint(equalTo: passwordText.bottomAnchor, constant: 100),
-                            loginButton.leadingAnchor.constraint(equalTo: loginText.leadingAnchor),
-                            loginButton.trailingAnchor.constraint(equalTo: loginText.trailingAnchor),
-                            loginButton.heightAnchor.constraint(equalToConstant: 50)]
+        
+        let constraints = [loginText.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30),
+                           loginText.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+                           loginText.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+                           loginText.heightAnchor.constraint(equalToConstant: 40),
+                           
+                           passwordText.topAnchor.constraint(equalTo: loginText.bottomAnchor, constant: 8),
+                           passwordText.leadingAnchor.constraint(equalTo: loginText.leadingAnchor),
+                           loginText.trailingAnchor.constraint(equalTo: loginText.trailingAnchor),
+                           passwordText.heightAnchor.constraint(equalToConstant: 40),
+                           
+                           loginButton.topAnchor.constraint(equalTo: passwordText.bottomAnchor, constant: 100),
+                           loginButton.leadingAnchor.constraint(equalTo: loginText.leadingAnchor),
+                           loginButton.trailingAnchor.constraint(equalTo: loginText.trailingAnchor),
+                           loginButton.heightAnchor.constraint(equalToConstant: 50)]
         
         NSLayoutConstraint.activate(constraints)
     }
     
-    @objc func inputText(){
+    @objc private func inputText() {
+        guard let login = loginText.text,
+              let password = passwordText.text else { return }
         
-        guard let loggin = loginText.text,
-              let password = passwordText.text else {return}
-        
-        loginButton.isEnabled = !loggin.isEmpty && !password.isEmpty
+        loginButton.isEnabled = !login.isEmpty && !password.isEmpty
         loginButton.alpha = loginButton.isEnabled ? 1 : 0.3
     }
     
     @objc private func signinPressed() {
-        
         guard let login = loginText.text,
               let password = passwordText.text else { return }
         
         apiManager.signin(login: login, password: password) { [weak self] (result) in
             
             switch result {
+            case .success(let token):
             
-            case.successfully(let token):
-                
                 APIListManager.token = token.token
-                
+
                 let storyboard = UIStoryboard(name: AppDelegate.storyBoardName, bundle: nil)
                 
                 guard let tabBar = storyboard.instantiateViewController(withIdentifier: "TabBar") as? TabBarController else { return }
                 
                 self?.appDelegate.window?.rootViewController = tabBar
-                
-            case.failed(let error):
+                    
+            case.failure(let error):
                 self?.alert.createAlert(error: error)
-                
             }
         }
     }
 }
 
+// MARK: - Text Field Delegate
 extension AutorizationViewController: UITextFieldDelegate {
     
-    func textFieldReturn(_ textField: UITextField) -> Bool {
-        
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == loginText {
             passwordText.becomeFirstResponder()
         } else {
@@ -133,6 +141,4 @@ extension AutorizationViewController: UITextFieldDelegate {
         
         return true
     }
-    
 }
-
