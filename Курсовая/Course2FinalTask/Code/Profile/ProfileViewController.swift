@@ -67,22 +67,22 @@ class ProfileViewController: UIViewController {
     }
     
     //    Проверка отображать ли кнопку Log out
-        private func addLogoutButton() {
-            if user?.username == "ivan1975" {
-                navigationItem.setRightBarButton(UIBarButtonItem(title: "Log out", style: .plain, target: self, action: #selector(logoutPressed)), animated: true)
-            }
+    private func addLogoutButton() {
+        if user?.username == "ivan1975" {
+            navigationItem.setRightBarButton(UIBarButtonItem(title: "Log out", style: .plain, target: self, action: #selector(logoutPressed)), animated: true)
         }
+    }
     
     //    Выход из профиля
-        @objc private func logoutPressed() {
-            apiManger.signout(token: APIListManager.token) { [weak self] _ in
-                guard let self = self else { return }
-
-                APIListManager.token = ""
-                    self.appDelegate.window?.rootViewController = AutorizationViewController()
-            }
+    @objc private func logoutPressed() {
+        apiManger.signout(token: APIListManager.token) { [weak self] _ in
+            guard let self = self else { return }
+            
+            APIListManager.token = ""
+            self.appDelegate.window?.rootViewController = AutorizationViewController()
         }
-
+    }
+    
     
     //Создание массива постов
     private func createPostsArray() {
@@ -110,21 +110,21 @@ class ProfileViewController: UIViewController {
     }
     
     //Переход на страницу подписчиков*
-@objc private func presentVCFollowers() {
-    
-    block.startAnimating()
-    guard let user = user else { return }
-    apiManger.usersFollowers(token: APIListManager.token, id: user.id) { [weak self] (result) in
-        guard let self = self else { return }
-        self.block.stopAnimating()
+    @objc private func presentVCFollowers() {
         
-        switch result {
-        case .success(let users):
-            let vc = FollowersTableViewController(usersArray: users, titleName: "Followers")
-            self.navigationController?.pushViewController(vc, animated: true)
+        block.startAnimating()
+        guard let user = user else { return }
+        apiManger.usersFollowers(token: APIListManager.token, id: user.id) { [weak self] (result) in
+            guard let self = self else { return }
+            self.block.stopAnimating()
             
-        case .failure(let error):
-            self.alert.createAlert(error: error)
+            switch result {
+            case .success(let users):
+                let vc = FollowersTableViewController(usersArray: users, titleName: "Followers")
+                self.navigationController?.pushViewController(vc, animated: true)
+                
+            case .failure(let error):
+                self.alert.createAlert(error: error)
             }
         }
     }
@@ -156,51 +156,51 @@ class ProfileViewController: UIViewController {
 
 
 extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-        
-        func numberOfSections(in collectionView: UICollectionView) -> Int {
-            1
-        }
-        
-        func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-            guard let postArray = postsOfCurrentUser else { return 0 }
-            return postArray.count
-        }
-        
-        func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-            
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProfileCell", for: indexPath) as! ProfileCell
-            guard let posts = postsOfCurrentUser else { return UICollectionViewCell() }
-            
-            
-            let post = posts[indexPath.item]
-            cell.setupCell(post: post)
-            return cell
-        }
-        
-        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-            CGSize(width: collectionView.bounds.width / 3, height: collectionView.bounds.width / 3)
-        }
-        
-        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-            0
-        }
-        
-        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-            CGSize(width: view.frame.width, height: 86)
-        }
-        
-        func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-            guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: identifierHeader, for: indexPath) as? ProfileHeaderCell else { return UICollectionReusableView() }
-            guard let user = user else { return header }
-            header.user = user
-            header.createCell()
-            header.delegate = self
-            presentFollowers(button: header.followersButton)
-            presentFollowing(button: header.followingButton)
-            
-            return header
-        }
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        1
     }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        guard let postArray = postsOfCurrentUser else { return 0 }
+        return postArray.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProfileCell", for: indexPath) as! ProfileCell
+        guard let posts = postsOfCurrentUser else { return UICollectionViewCell() }
+        
+        
+        let post = posts[indexPath.item]
+        cell.setupCell(post: post)
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        CGSize(width: collectionView.bounds.width / 3, height: collectionView.bounds.width / 3)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        CGSize(width: view.frame.width, height: 86)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: identifierHeader, for: indexPath) as? ProfileHeaderCell else { return UICollectionReusableView() }
+        guard let user = user else { return header }
+        header.user = user
+        header.createCell()
+        header.delegate = self
+        presentFollowers(button: header.followersButton)
+        presentFollowing(button: header.followingButton)
+        
+        return header
+    }
+}
 
 extension ProfileViewController: FollowUnfollowDelegate {
     

@@ -76,7 +76,7 @@ final class APIListManager: APIManager, RequestManager {
         let request = usersFollowingRequest(token: token, id: id)
         fetch(request: request, completionHandler: completion)
     }
-     
+    
     func usersFollowers(token: String, id: String, completion: @escaping (APIResult<[User]>) -> Void) {
         let request = usersFollowersRequest(token: token, id: id)
         fetch(request: request, completionHandler: completion)

@@ -96,8 +96,8 @@ class ShareViewController: UIViewController {
                 self.tabBarController?.selectedIndex = 0
                 self.navigationController?.popToRootViewController(animated: true)
                 let vc = FeedViewController()
-                self.delegate = vc
-                self.delegate?.updateFeedUI()
+//                self.delegate = vc
+//                self.delegate?.updateFeedUI()
                 print("All compleate")
                 
             case .failure(let error):

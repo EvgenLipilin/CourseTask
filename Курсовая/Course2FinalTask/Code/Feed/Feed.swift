@@ -60,7 +60,7 @@ class FeedCell: UICollectionViewCell {
         imageFeed.kf.setImage(with: urlPost)
         
         userName.text = post.authorUsername
-
+        
         dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .medium
         dateFormatter.doesRelativeDateFormatting = true

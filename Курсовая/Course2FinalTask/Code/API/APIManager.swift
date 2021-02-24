@@ -31,7 +31,7 @@ extension APIManager {
         let dataTask = session.dataTask(with: request) { (data, response, error) in
             
             guard let HTTPResponse = response as? HTTPURLResponse else {
-
+                
                 let error = NSError()
                 completionHandler(nil, nil ,error)
                 return
@@ -51,7 +51,7 @@ extension APIManager {
                 case 422: error = .unprocessable
                 default: error = .transferError
                 }
-
+                
                 completionHandler(nil, HTTPResponse, error)
             }
         }
@@ -71,7 +71,7 @@ extension APIManager {
                 }
                 
                 if data.isEmpty {
-//                    Для logout, так как там нет JSON
+                    //                    Для logout, так как там нет JSON
                     let error = NSError()
                     completionHandler(.failure(error))
                 }

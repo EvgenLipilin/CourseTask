@@ -113,15 +113,15 @@ final class AutorizationViewController: UIViewController {
             
             switch result {
             case .success(let token):
-            
+                
                 APIListManager.token = token.token
-
+                
                 let storyboard = UIStoryboard(name: AppDelegate.storyBoardName, bundle: nil)
                 
                 guard let tabBar = storyboard.instantiateViewController(withIdentifier: "TabBar") as? TabBarController else { return }
                 
                 self?.appDelegate.window?.rootViewController = tabBar
-                    
+                
             case.failure(let error):
                 self?.alert.createAlert(error: error)
             }
