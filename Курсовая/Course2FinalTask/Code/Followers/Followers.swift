@@ -7,13 +7,12 @@
 //
 
 import UIKit
-import DataProvider
 
 class Followers: UIViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
     }
-
+    
 }
