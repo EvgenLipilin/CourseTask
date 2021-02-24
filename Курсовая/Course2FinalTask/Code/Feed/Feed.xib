@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -54,12 +54,6 @@
                         <color key="tintColor" systemColor="systemBlueColor"/>
                         <state key="normal" image="like"/>
                     </button>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7UK-FB-wXt">
-                        <rect key="frame" x="15" y="727" width="37" height="25"/>
-                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
-                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BOV-ez-lrF">
                         <rect key="frame" x="15" y="756" width="470" height="70"/>
                         <constraints>
@@ -69,6 +63,10 @@
                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i1q-H0-3dl" userLabel="labellike">
+                        <rect key="frame" x="10" y="725" width="31" height="30"/>
+                        <state key="normal" title="wow"/>
+                    </button>
                 </subviews>
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
@@ -82,15 +80,14 @@
                 <constraint firstItem="su0-X0-AVh" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="8" id="Ltt-do-cCy"/>
                 <constraint firstItem="su0-X0-AVh" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="8" id="PCH-HL-VdT"/>
                 <constraint firstAttribute="trailing" secondItem="1Cs-gA-EYU" secondAttribute="trailing" id="R8f-XM-zHj"/>
-                <constraint firstItem="fgw-85-IGM" firstAttribute="centerY" secondItem="7UK-FB-wXt" secondAttribute="centerY" id="XIP-wQ-a3P"/>
                 <constraint firstItem="Tty-6I-bAW" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="8" id="YNc-9W-9Az"/>
+                <constraint firstItem="i1q-H0-3dl" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="YxQ-yb-nnc"/>
                 <constraint firstAttribute="trailing" secondItem="fgw-85-IGM" secondAttribute="trailing" constant="15" id="Z64-GC-ICi"/>
                 <constraint firstItem="cDl-l4-hf0" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="27" id="dDI-a0-ot5"/>
                 <constraint firstItem="BOV-ez-lrF" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="15" id="fxh-BM-MTr"/>
                 <constraint firstAttribute="bottom" secondItem="BOV-ez-lrF" secondAttribute="bottom" constant="16" id="lYP-o5-71W"/>
                 <constraint firstItem="BOV-ez-lrF" firstAttribute="top" secondItem="fgw-85-IGM" secondAttribute="bottom" constant="4" id="osJ-PI-tbI"/>
-                <constraint firstItem="7UK-FB-wXt" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="15" id="v8D-W7-sxg"/>
-                <constraint firstItem="7UK-FB-wXt" firstAttribute="top" secondItem="1Cs-gA-EYU" secondAttribute="bottom" constant="10" id="vsN-f1-iJp"/>
+                <constraint firstItem="i1q-H0-3dl" firstAttribute="top" secondItem="1Cs-gA-EYU" secondAttribute="bottom" constant="8" id="vsN-f1-iJp"/>
                 <constraint firstItem="1Cs-gA-EYU" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="vx9-3H-ozc"/>
             </constraints>
             <size key="customSize" width="501" height="662"/>
@@ -100,7 +97,7 @@
                 <outlet property="datePost" destination="cDl-l4-hf0" id="Ceu-kO-SZO"/>
                 <outlet property="heartButton" destination="fgw-85-IGM" id="lbm-4S-hkS"/>
                 <outlet property="imageFeed" destination="1Cs-gA-EYU" id="VDt-AA-aao"/>
-                <outlet property="labelLike" destination="7UK-FB-wXt" id="p8j-XB-Guf"/>
+                <outlet property="labelLike" destination="i1q-H0-3dl" id="BM0-Dl-OBC"/>
                 <outlet property="userName" destination="Tty-6I-bAW" id="UQP-5U-6GR"/>
             </connections>
             <point key="canvasLocation" x="121.73913043478262" y="186.83035714285714"/>

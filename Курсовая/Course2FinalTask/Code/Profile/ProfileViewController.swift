@@ -33,8 +33,8 @@ class ProfileViewController: UIViewController {
     
     //    Обновляет массив постов при публикации нового поста
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
         
+        super.viewWillAppear(true)
         createPostsArray()
     }
     
@@ -107,32 +107,32 @@ class ProfileViewController: UIViewController {
         }
     }
     
-    //Переход на страницу подписчиков
+    //тагет Переход на страницу подписчиков
     private func presentFollowers(button: UIButton) {
         button.addTarget(self, action: #selector(presentVCFollowers), for: .touchUpInside)
     }
     
     //Переход на страницу подписчиков*
-    @objc private func presentVCFollowers() {
+@objc private func presentVCFollowers() {
+    
+    block.startAnimating()
+    guard let user = user else { return }
+    apiManger.usersFollowing(token: APIListManager.token, id: user.id) { [weak self] (result) in
+        guard let self = self else { return }
+        self.block.stopAnimating()
         
-        block.startAnimating()
-        guard let user = user else { return }
-        apiManger.usersFollowing(token: APIListManager.token, id: user.id) { [weak self] (result) in
-            guard let self = self else { return }
-            self.block.stopAnimating()
+        switch result {
+        case .success(let users):
+            let vc = FollowersTableViewController(usersArray: users, titleName: "Followers")
+            self.navigationController?.pushViewController(vc, animated: true)
             
-            switch result {
-            case .success(let users):
-                let vc = FollowersTableViewController(usersArray: users, titleName: "Followers")
-                self.navigationController?.pushViewController(vc, animated: true)
-                
-            case .failure(let error):
-                self.alert.createAlert(error: error)
+        case .failure(let error):
+            self.alert.createAlert(error: error)
             }
         }
     }
     
-    //Переход на страницу подписок
+    // тагет Переход на страницу подписок
     private func presentFollowing(button: UIButton) {
         button.addTarget(self, action: #selector(presentVCFollowing), for: .touchUpInside)
     }

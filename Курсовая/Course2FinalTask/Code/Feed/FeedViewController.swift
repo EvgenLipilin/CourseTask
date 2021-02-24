@@ -36,7 +36,7 @@ import Kingfisher
             super.viewWillAppear(true)
             
                 createPostsArrayWithBlock(token: APIListManager.token)
-                collectionView.scrollToItem(at: IndexPath(item: 0, section: 1), at: .top, animated: true)
+//                collectionView.scrollToItem(at: IndexPath(item: 0, section: 1), at: .top, animated: true)
         }
         
         //    MARK: - Private Methods

@@ -25,7 +25,7 @@ class FeedCell: UICollectionViewCell {
     private let dateFormatter = DateFormatter()
     var post: Post? {
         didSet {
-            heartButton.setTitle("Likes: \(post?.likedByCount ?? 0)", for: .normal)
+            labelLike.setTitle("Likes: \(post?.likedByCount ?? 0)", for: .normal)
             liked = post?.currentUserLikesThisPost ?? false
         }
     }
@@ -66,8 +66,8 @@ class FeedCell: UICollectionViewCell {
         dateFormatter.doesRelativeDateFormatting = true
         datePost.text = dateFormatter.string(from: post.createdTime)
         
-        heartButton.setTitleColor(.black, for: .normal)
-        heartButton.addTarget(self, action: #selector(tapLikesButton), for: .touchUpInside)
+        labelLike.setTitleColor(.black, for: .normal)
+        labelLike.addTarget(self, action: #selector(tapLikesButton), for: .touchUpInside)
         
         commentLabel.text = post.description
         
