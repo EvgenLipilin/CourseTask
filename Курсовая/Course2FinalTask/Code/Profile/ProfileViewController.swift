@@ -40,8 +40,6 @@ class ProfileViewController: UIViewController {
     
     // Создает текущего пользователя и массив его постов
     private func createCurrentUserAndPosts() {
-        
-        //Создает профиль текущего пользователя
         if self.user == nil {
             block.startAnimating()
             self.apiManger.currentUser(token: APIListManager.token) { [weak self] (result) in
@@ -62,10 +60,9 @@ class ProfileViewController: UIViewController {
             
             //        Для создания профилей других пользователей
         } else {
-            DispatchQueue.main.async {
-                self.navigationItem.title = self.user?.username
-            }
+            navigationItem.title = self.user?.username
             createPostsArray()
+            self.addLogoutButton()
         }
     }
     
@@ -117,7 +114,7 @@ class ProfileViewController: UIViewController {
     
     block.startAnimating()
     guard let user = user else { return }
-    apiManger.usersFollowing(token: APIListManager.token, id: user.id) { [weak self] (result) in
+    apiManger.usersFollowers(token: APIListManager.token, id: user.id) { [weak self] (result) in
         guard let self = self else { return }
         self.block.stopAnimating()
         
@@ -141,7 +138,7 @@ class ProfileViewController: UIViewController {
     @objc private func presentVCFollowing() {
         block.startAnimating()
         guard let user = user else { return }
-        apiManger.usersFollowers(token: APIListManager.token, id: user.id) { [weak self] (result) in
+        apiManger.usersFollowing(token: APIListManager.token, id: user.id) { [weak self] (result) in
             guard let self = self else { return }
             self.block.stopAnimating()
             
