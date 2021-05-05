@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="18154" systemVersion="20E241" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="CurrentUser" representedClassName="CurrentUser" syncable="YES" codeGenerationType="class">
+        <attribute name="avatar" optional="YES" attributeType="Binary"/>
+        <attribute name="currentUserFollowsThisUser" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="currentUserIsFollowedByThisUser" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="followedByCount" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="followsCount" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="fullName" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="userName" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="Feed" representedClassName="Feed" syncable="YES" codeGenerationType="class">
+        <attribute name="author" optional="YES" attributeType="String"/>
+        <attribute name="authorAvatar" optional="YES" attributeType="Binary"/>
+        <attribute name="authorUserName" optional="YES" attributeType="String"/>
+        <attribute name="createdTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="currentUserlikesThisPost" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="descrip" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="image" optional="YES" attributeType="Binary"/>
+        <attribute name="likedByCount" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+    </entity>
+    <elements>
+        <element name="CurrentUser" positionX="-63" positionY="-18" width="128" height="149"/>
+        <element name="Feed" positionX="-54" positionY="-9" width="128" height="164"/>
+    </elements>
+</model>

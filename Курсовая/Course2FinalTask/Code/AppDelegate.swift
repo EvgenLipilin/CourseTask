@@ -24,6 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 extension AppDelegate {
     static let storyBoardName = "Storyboard"
+    
     static var shared: AppDelegate {
         UIApplication.shared.delegate as! AppDelegate
     }
