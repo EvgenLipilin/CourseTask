@@ -17,15 +17,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
+        let rootVC = AutorizationViewController()
+        rootVC.dataManager = dataManager
+        
         window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = AutorizationViewController()
+        window?.rootViewController = rootVC
         window?.makeKeyAndVisible()
         return true
     }
 }
 
 extension AppDelegate {
-    static let storyBoardName = "Storyboard"
+    static let storyboardName = "Storyboard"
     
     static var shared: AppDelegate {
         UIApplication.shared.delegate as! AppDelegate

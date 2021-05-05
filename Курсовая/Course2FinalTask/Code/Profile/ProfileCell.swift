@@ -16,8 +16,13 @@ class ProfileCell: UICollectionViewCell {
     @IBOutlet weak var postImage: UIImageView!
     
     func setupCell(post: Post) {
-        let url = URL(string: post.image)!
-        postImage.kf.setImage(with: url)
+        if TabBarController.offlineMode == false {
+            let url = URL(string: post.image)!
+            postImage.kf.setImage(with: url)
+        } else {
+            guard let imageData = post.imageData else { return }
+            postImage.image = UIImage(data: imageData)
+        }
     }
 }
 

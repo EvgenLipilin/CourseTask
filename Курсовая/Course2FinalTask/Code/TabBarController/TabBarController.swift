@@ -9,7 +9,5 @@
 import UIKit
 
 class TabBarController: UITabBarController {
-    
     static var offlineMode = false
-    
 }

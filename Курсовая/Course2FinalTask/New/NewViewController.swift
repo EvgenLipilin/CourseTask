@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NewPostViewController: UIViewController {
+final class NewPostViewController: UIViewController {
     
     private lazy var alert = AlertViewController(view: self)
     @IBOutlet weak var collectionView: UICollectionView!

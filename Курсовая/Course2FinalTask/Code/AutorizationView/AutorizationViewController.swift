@@ -6,7 +6,6 @@
 //  Copyright © 2021 e-Legion. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
 final class AutorizationViewController: UIViewController {
@@ -17,6 +16,9 @@ final class AutorizationViewController: UIViewController {
     private lazy var alert = AlertViewController(view: self)
     private let keychain: KeychainProtocol = KeychainManager()
     private lazy var block = BlockViewController(view: view)
+    
+    // MARK: - Public Properties
+    var dataManager: CoreDataInstagram!
     
     private lazy var loginText: UITextField = {
         let textField = UITextField()
@@ -71,6 +73,17 @@ final class AutorizationViewController: UIViewController {
         
         createUI()
     }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        guard let token = keychain.readToken(userName: "user") else { return }
+        block.startAnimating()
+        APIListManager.token = token
+        block.stopAnimating()
+        presentTabBarController()
+    }
+    
     
     //    MARK: - Private Methods
     private func createUI() {
@@ -99,10 +112,16 @@ final class AutorizationViewController: UIViewController {
         NSLayoutConstraint.activate(constraints)
     }
     
+    private func presentTabBarController() {
+        
+        let storyboard = UIStoryboard(name: AppDelegate.storyboardName, bundle: nil)
+        guard let tabBar = storyboard.instantiateViewController(withIdentifier: "TabBar") as? TabBarController else { return }
+        appDelegate.window?.rootViewController = tabBar
+    }
+    
     @objc private func inputText() {
         guard let login = loginText.text,
               let password = passwordText.text else { return }
-        
         loginButton.isEnabled = !login.isEmpty && !password.isEmpty
         loginButton.alpha = loginButton.isEnabled ? 1 : 0.3
     }
@@ -110,7 +129,6 @@ final class AutorizationViewController: UIViewController {
     @objc private func signinPressed() {
         guard let login = loginText.text,
               let password = passwordText.text else { return }
-        
         apiManager.signin(login: login, password: password) { [weak self] (result) in
             
             switch result {
@@ -118,7 +136,7 @@ final class AutorizationViewController: UIViewController {
                 
                 APIListManager.token = token.token
                 
-                let storyboard = UIStoryboard(name: AppDelegate.storyBoardName, bundle: nil)
+                let storyboard = UIStoryboard(name: AppDelegate.storyboardName, bundle: nil)
                 
                 guard let tabBar = storyboard.instantiateViewController(withIdentifier: "TabBar") as? TabBarController else { return }
                 

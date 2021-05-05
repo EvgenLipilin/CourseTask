@@ -53,11 +53,17 @@ class FeedCell: UICollectionViewCell {
     func setupCell() {
         
         guard let post = post else { return }
-        let urlAvatar = URL(string: post.authorAvatar)!
-        avatar.kf.setImage(with: urlAvatar)
-        
-        let urlPost = URL(string: post.image)!
-        imageFeed.kf.setImage(with: urlPost)
+        if TabBarController.offlineMode == false {
+            let urlAvatar = URL(string: post.authorAvatar)!
+            avatar.kf.setImage(with: urlAvatar)
+            let urlPost = URL(string: post.image)!
+            imageFeed.kf.setImage(with: urlPost)
+        } else {
+            guard let imageData = post.imageData,
+                  let avatarData = post.authorAvatarData else { return }
+            avatar.image = UIImage(data: avatarData)
+            imageFeed.image = UIImage(data: imageData)
+        }
         
         userName.text = post.authorUsername
         

@@ -14,7 +14,7 @@ typealias JSONCompletionHandler = (Data?, HTTPURLResponse?, Error?) -> Void
 
 enum APIResult<T> {
     case success(T)
-    case failure(Error)
+    case failure(ErrorManager)
 }
 
 protocol APIManager {
