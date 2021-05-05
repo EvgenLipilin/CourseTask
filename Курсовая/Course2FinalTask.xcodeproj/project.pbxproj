@@ -150,7 +150,7 @@
 				CF280CC625DFF0EA00BD3DE5 /* AutorizationView */,
 				CF280CC825DFF13800BD3DE5 /* API */,
 				B06348872643047C0033CAD9 /* CoreDataManager */,
-				B063488D264309550033CAD9 /* KeychainManager */,
+				B063488D264309550033CAD9 /* Keychain Manager */,
 				CF3C397F24DF06E300B4587B /* Model */,
 				CF04393E24DFE5C300A29B35 /* Feed */,
 				CF04394124DFE62600A29B35 /* Following */,
@@ -185,12 +185,12 @@
 			path = CoreDataManager;
 			sourceTree = "<group>";
 		};
-		B063488D264309550033CAD9 /* KeychainManager */ = {
+		B063488D264309550033CAD9 /* Keychain Manager */ = {
 			isa = PBXGroup;
 			children = (
 				B063488E264309AB0033CAD9 /* KeychainManager.swift */,
 			);
-			path = KeychainManager;
+			path = "Keychain Manager";
 			sourceTree = "<group>";
 		};
 		CF04393E24DFE5C300A29B35 /* Feed */ = {

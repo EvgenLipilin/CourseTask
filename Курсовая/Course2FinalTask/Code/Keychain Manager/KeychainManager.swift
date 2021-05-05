@@ -16,6 +16,21 @@ protocol KeychainProtocol {
 
 final class KeychainManager: KeychainProtocol {
     
+    // MARK: - Private Methods
+    private func keychainQuery(userName: String? = nil) -> [String : AnyObject] {
+        
+        var query = [String : AnyObject]()
+        query[kSecClass as String] = kSecClassGenericPassword
+        query[kSecAttrAccessible as String] = kSecAttrAccessibleWhenUnlocked
+        
+        if let userName = userName {
+            query[kSecAttrAccount as String] = userName as AnyObject
+        }
+        
+        return query
+    }
+    
+    // MARK: - Public Methods
     func saveToken(token: String, userName: String) {
         
         let tokenData = token.data(using: .utf8)
@@ -23,14 +38,15 @@ final class KeychainManager: KeychainProtocol {
         if readToken(userName: userName) != nil {
             var attributesToUpdate = [String : AnyObject]()
             attributesToUpdate[kSecValueData as String] = tokenData as AnyObject
+            
             let query = keychainQuery(userName: userName)
             let _ = SecItemUpdate(query as CFDictionary, attributesToUpdate as CFDictionary)
         }
+        
         var item = keychainQuery(userName: userName)
         item[kSecValueData as String] = tokenData as AnyObject
         let _ = SecItemAdd(item as CFDictionary, nil)
     }
-    
     
     func readToken(userName: String) -> String? {
         
@@ -55,24 +71,8 @@ final class KeychainManager: KeychainProtocol {
         return token
     }
     
-    
     func deleteToken(userName: String) {
-        
         let item = keychainQuery(userName: userName)
         let _ = SecItemDelete(item as CFDictionary)
-    }
-    
-    
-    private func keychainQuery(userName: String? = nil) -> [String : AnyObject] {
-        
-        var query = [String : AnyObject]()
-        query[kSecClass as String] = kSecClassGenericPassword
-        query[kSecAttrAccessible as String] = kSecAttrAccessibleWhenUnlocked
-        
-        if let userName = userName {
-            query[kSecAttrAccount as String] = userName as AnyObject
-        }
-        
-        return query
     }
 }

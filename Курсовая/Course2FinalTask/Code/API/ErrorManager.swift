@@ -9,10 +9,6 @@
 import Foundation
 
 enum ErrorManager: String, Error {
-    case badRequest = "Bad request"
-    case unauthorized = "Unauthorized"
-    case notFound = "Not found"
-    case notAcceptable = "Not acceptable"
-    case unprocessable = "Unprocessable"
-    case transferError = "Transfer error"
+    case unauthorized = "Unauthorized" // 401
+    case offlineMode = "Offline Mode"
 }

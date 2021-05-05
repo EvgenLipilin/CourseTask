@@ -15,6 +15,8 @@ final class AutorizationViewController: UIViewController {
     private var appDelegate = AppDelegate.shared
     private var apiManager = APIListManager()
     private lazy var alert = AlertViewController(view: self)
+    private let keychain: KeychainProtocol = KeychainManager()
+    private lazy var block = BlockViewController(view: view)
     
     private lazy var loginText: UITextField = {
         let textField = UITextField()

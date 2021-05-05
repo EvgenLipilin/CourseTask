@@ -11,6 +11,19 @@ import UIKit
 
 protocol RequestManager {
     func signinRequest(userName: String, password: String) -> URLRequest
+    func feedRequest(token: String) -> URLRequest
+    func signoutRequest(token: String) -> URLRequest
+    func currentUserRequest(token: String) -> URLRequest
+    func userIDRequest(token: String, id: String) -> URLRequest
+    func userPostsRequest(token: String, id: String) -> URLRequest
+    func usersLikedPostRequest(token: String, id: String) -> URLRequest
+    func likePostRequest(token: String, id: String) -> URLRequest
+    func unlikePostRequest(token: String, id: String) -> URLRequest
+    func usersFollowingRequest(token: String, id: String) -> URLRequest
+    func usersFollowersRequest(token: String, id: String) -> URLRequest
+    func followRequest(token: String, id: String) -> URLRequest
+    func unfollowRequest(token: String, id: String) -> URLRequest
+    func newPostRequest(token: String, image: UIImage, description: String) -> URLRequest
 }
 
 extension RequestManager {
@@ -256,4 +269,5 @@ extension RequestManager {
         }
         return request
     }
+    
 }
