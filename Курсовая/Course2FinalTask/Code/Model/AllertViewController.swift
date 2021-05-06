@@ -23,9 +23,22 @@ class AlertViewController: UIViewController {
     
     func createAlert(error: Error?) {
         
-        let alert = UIAlertController(title: "Unknown error!", message: "Please, try again later.", preferredStyle: .alert)
+        var title = "Unknown error!"
+        var massege = "Please, try again later."
+        
+        if TabBarController.offlineMode == true {
+            title = "Offline mode"
+            massege = ""
+        }
+        
+        if let error = error as? ErrorManager {
+            title = error.rawValue
+        }
+        
+        let alert = UIAlertController(title: title, message: massege, preferredStyle: .alert)
         let action = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
         alert.addAction(action)
+        
         inputViewControllers.present(alert, animated: true, completion: nil)
     }
 }

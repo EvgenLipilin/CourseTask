@@ -16,6 +16,10 @@ class ProfileViewController: UIViewController {
     private var postsOfCurrentUser: [Post]?
     private let apiManger = APIListManager()
     private var appDelegate = AppDelegate.shared
+    private let keychain: KeychainProtocol = KeychainManager()
+    private var dataManager: CoreDataInstagram {
+        AppDelegate.shared.dataManager
+    }
     
     var user: User?
     
@@ -31,15 +35,19 @@ class ProfileViewController: UIViewController {
         collectionView.delegate = self
     }
     
-    //    Обновляет массив постов при публикации нового поста
+    //    Обновляет массив постов при публикации новой фотографии
     override func viewWillAppear(_ animated: Bool) {
-        
         super.viewWillAppear(true)
+        
         createPostsArray()
     }
     
-    // Создает текущего пользователя и массив его постов
+    //    MARK: - Private Methods
+    
+    //    Создает текущего пользователя и массив его постов
     private func createCurrentUserAndPosts() {
+        
+        //        Для создания профиля текущего пользователя
         if self.user == nil {
             block.startAnimating()
             self.apiManger.currentUser(token: APIListManager.token) { [weak self] (result) in
@@ -53,7 +61,20 @@ class ProfileViewController: UIViewController {
                     self.createPostsArray()
                     self.addLogoutButton()
                     
+                    if self.fetchCurrentUser().isEmpty {
+                        self.saveCurrentUserInCoreData(user: user)
+                    }
+                    
                 case .failure(let error):
+                    switch error {
+                    case .offlineMode:
+                        guard let user = self.fetchCurrentUser().first else { return }
+                        self.user = user
+                        self.createPostsArray()
+                        self.addLogoutButton()
+                        
+                    default: return
+                    }
                     self.alert.createAlert(error: error)
                 }
             }
@@ -66,25 +87,14 @@ class ProfileViewController: UIViewController {
         }
     }
     
-    //    Проверка отображать ли кнопку Log out
+//    Проверка отображать ли кнопку Log out
     private func addLogoutButton() {
         if user?.username == "ivan1975" {
             navigationItem.setRightBarButton(UIBarButtonItem(title: "Log out", style: .plain, target: self, action: #selector(logoutPressed)), animated: true)
         }
     }
     
-    //    Выход из профиля
-    @objc private func logoutPressed() {
-        apiManger.signout(token: APIListManager.token) { [weak self] _ in
-            guard let self = self else { return }
-            
-            APIListManager.token = ""
-            self.appDelegate.window?.rootViewController = AutorizationViewController()
-        }
-    }
-    
-    
-    //Создание массива постов
+    //    Логика по созданию массива постов
     private func createPostsArray() {
         
         block.startAnimating()
@@ -97,45 +107,62 @@ class ProfileViewController: UIViewController {
             case .success(let post):
                 self.postsOfCurrentUser = post
                 self.collectionView.reloadData()
+                if self.fetchFeedFromCoreData().isEmpty {
+                    self.saveFeedInCoreData(posts: post)
+                }
                 
             case .failure(let error):
+                switch error {
+                case .offlineMode:
+                    guard let user = self.user else { return }
+                    self.postsOfCurrentUser = self.fetchFeedFromCoreData().filter({ $0.authorUsername == user.username })
+                    
+                    self.collectionView.reloadData()
+                    
+                default: return
+                }
+                
                 self.alert.createAlert(error: error)
             }
         }
     }
     
-    //тагет Переход на страницу подписчиков
+    private func saveFeedInCoreData(posts: [Post]) {
+        dataManager.saveFeedInCoreData(for: Feed.self, posts: posts)
+    }
+    
+    private func fetchFeedFromCoreData() -> [Post] {
+        dataManager.fetchFeed(for: Feed.self)
+    }
+    
+    private func saveCurrentUserInCoreData(user: User) {
+        dataManager.saveCurrentUserInCoreData(for: CurrentUser.self, user: user)
+    }
+    
+    private func fetchCurrentUser() -> [User] {
+        return dataManager.fetchCurrentUser(for: CurrentUser.self)
+    }
+    
+//    Выход из профиля
+    @objc private func logoutPressed() {
+        apiManger.signout(token: APIListManager.token) { [weak self] _ in
+            guard let self = self else { return }
+
+            APIListManager.token = ""
+            self.keychain.deleteToken(userName: "user")
+            
+                self.appDelegate.window?.rootViewController = AutorizationViewController()
+        }
+    }
+    
+    //    Target для перехода на страницу подписчиков
     private func presentFollowers(button: UIButton) {
         button.addTarget(self, action: #selector(presentVCFollowers), for: .touchUpInside)
     }
     
-    //Переход на страницу подписчиков*
+    //    Переход на страницу подписчиков
     @objc private func presentVCFollowers() {
         
-        block.startAnimating()
-        guard let user = user else { return }
-        apiManger.usersFollowers(token: APIListManager.token, id: user.id) { [weak self] (result) in
-            guard let self = self else { return }
-            self.block.stopAnimating()
-            
-            switch result {
-            case .success(let users):
-                let vc = FollowersTableViewController(usersArray: users, titleName: "Followers")
-                self.navigationController?.pushViewController(vc, animated: true)
-                
-            case .failure(let error):
-                self.alert.createAlert(error: error)
-            }
-        }
-    }
-    
-    // тагет Переход на страницу подписок
-    private func presentFollowing(button: UIButton) {
-        button.addTarget(self, action: #selector(presentVCFollowing), for: .touchUpInside)
-    }
-    
-    //Переход на страницу подписок*
-    @objc private func presentVCFollowing() {
         block.startAnimating()
         guard let user = user else { return }
         apiManger.usersFollowing(token: APIListManager.token, id: user.id) { [weak self] (result) in
@@ -152,9 +179,33 @@ class ProfileViewController: UIViewController {
             }
         }
     }
+    
+    //    Target для перехода на страницу подписок
+    private func presentFollowing(button: UIButton) {
+        button.addTarget(self, action: #selector(presentVCFollowing), for: .touchUpInside)
+    }
+    
+    //    Переход на страницу подписок
+    @objc private func presentVCFollowing() {
+        block.startAnimating()
+        guard let user = user else { return }
+        apiManger.usersFollowers(token: APIListManager.token, id: user.id) { [weak self] (result) in
+            guard let self = self else { return }
+            self.block.stopAnimating()
+            
+            switch result {
+            case .success(let users):
+                let vc = FollowersTableViewController(usersArray: users, titleName: "Followers")
+                self.navigationController?.pushViewController(vc, animated: true)
+                
+            case .failure(let error):
+                self.alert.createAlert(error: error)
+            }
+        }
+    }
 }
 
-
+//    MARK:- DataSource and Delegate
 extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -170,7 +221,6 @@ extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDel
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProfileCell", for: indexPath) as! ProfileCell
         guard let posts = postsOfCurrentUser else { return UICollectionViewCell() }
-        
         
         let post = posts[indexPath.item]
         cell.setupCell(post: post)
@@ -190,7 +240,7 @@ extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDel
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: identifierHeader, for: indexPath) as? ProfileHeaderCell else { return UICollectionReusableView() }
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: identifierHeader, for: indexPath) as! ProfileHeaderCell
         guard let user = user else { return header }
         header.user = user
         header.createCell()
@@ -202,9 +252,10 @@ extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDel
     }
 }
 
+//    MARK:- FollowUnfollowDelegate
 extension ProfileViewController: FollowUnfollowDelegate {
     
-    //Подписаться-подписаться на-от пользователя
+    //    Подписаться/отписаться на/от пользователя
     func tapFollowUnfollowButton(user: User) {
         
         if user.currentUserFollowsThisUser {

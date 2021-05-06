@@ -18,8 +18,8 @@ protocol FollowUnfollowDelegate: AnyObject {
 class ProfileHeaderCell: UICollectionViewCell {
     
     weak var delegate: FollowUnfollowDelegate?
-    var currentUser: User?
     
+    var currentUser: User?
     var user: User? {
         didSet {
             if currentUser?.id == user?.id {
@@ -47,7 +47,11 @@ class ProfileHeaderCell: UICollectionViewCell {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel?.font = .systemFont(ofSize: 14, weight: .semibold)
-        button.setTitleColor(.black, for: .normal)
+        if #available(iOS 13.0, *) {
+            button.setTitleColor(.label, for: .normal)
+        } else {
+            // Fallback on earlier versions
+        }
         return button
     }()
     
@@ -55,7 +59,11 @@ class ProfileHeaderCell: UICollectionViewCell {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel?.font = .systemFont(ofSize: 14, weight: .semibold)
-        button.setTitleColor(.black, for: .normal)
+        if #available(iOS 13.0, *) {
+            button.setTitleColor(.label, for: .normal)
+        } else {
+            // Fallback on earlier versions
+        }
         return button
     }()
     
@@ -93,11 +101,17 @@ class ProfileHeaderCell: UICollectionViewCell {
     func createCell() {
         guard let user = user else { return }
         nameLabel.text = user.fullName
-        followersButton.setTitle("Followers: \(user.followedByCount)", for: .normal)
-        followingButton.setTitle("Following: \(user.followsCount)", for: .normal)
+        followersButton.setTitle("Followers: \(user.followsCount)", for: .normal)
+        followingButton.setTitle("Following: \(user.followedByCount)", for: .normal)
+        
+        if TabBarController.offlineMode == false {
         let url = URL(string: user.avatar)
         avatarImageView.kf.setImage(with: url)
-        
+        } else {
+            guard let imadeData = user.avatarData else { return }
+            avatarImageView.image = UIImage(data: imadeData)
+            
+        }
         followUnfollowButton.addTarget(self, action: #selector(tapFollowUnfollow), for: .touchUpInside)
     }
     

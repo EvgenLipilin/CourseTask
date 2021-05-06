@@ -13,8 +13,9 @@ typealias JSONTask = URLSessionDataTask
 typealias JSONCompletionHandler = (Data?, HTTPURLResponse?, Error?) -> Void
 
 enum APIResult<T> {
+    
     case success(T)
-    case failure(Error)
+    case failure(ErrorManager)
 }
 
 protocol APIManager {
@@ -26,32 +27,43 @@ protocol APIManager {
 
 extension APIManager {
     
+    private var keychain: KeychainProtocol {
+        return KeychainManager()
+    }
+    
+    private var appDelegate: AppDelegate {
+        return AppDelegate.shared
+    }
+    
     private func JSONTask(request: URLRequest, completionHandler: @escaping JSONCompletionHandler) -> JSONTask {
         
         let dataTask = session.dataTask(with: request) { (data, response, error) in
             
+            let error: ErrorManager
             guard let HTTPResponse = response as? HTTPURLResponse else {
                 
-                let error = NSError()
-                completionHandler(nil, nil ,error)
+                TabBarController.offlineMode = true
+                error = .offlineMode
+                completionHandler(nil, nil, error)
                 return
             }
             
-            if data != nil {
+            switch HTTPResponse.statusCode {
+            case 200:
                 print("response = \(HTTPResponse.statusCode)")
                 completionHandler(data, HTTPResponse, nil)
-            } else {
-                let error: ErrorManager
                 
-                switch HTTPResponse.statusCode {
-                case 400: error = .badRequest
-                case 401: error = .unauthorized
-                case 404: error = .notFound
-                case 406: error = .notAcceptable
-                case 422: error = .unprocessable
-                default: error = .transferError
+            case 401:
+                error = .unauthorized
+                keychain.deleteToken(userName: "user")
+                DispatchQueue.main.async {
+                    appDelegate.window?.rootViewController = AutorizationViewController()
                 }
+                completionHandler(nil, HTTPResponse, error)
                 
+            default:
+                TabBarController.offlineMode = true
+                error = .offlineMode
                 completionHandler(nil, HTTPResponse, error)
             }
         }
@@ -65,21 +77,21 @@ extension APIManager {
             DispatchQueue.main.async {
                 guard let data = data else {
                     if let error = error {
-                        completionHandler(.failure(error))
+                        completionHandler(.failure(error as! ErrorManager))
                     }
+                    
                     return
                 }
                 
                 if data.isEmpty {
-                    //                    Для logout, так как там нет JSON
-                    let error = NSError()
+                    let error = ErrorManager.unauthorized
                     completionHandler(.failure(error))
                 }
                 
                 if let value = decodeJSON(type: T.self, from: data) {
                     completionHandler(.success(value))
                 } else {
-                    let error = NSError()
+                    let error = ErrorManager.unauthorized
                     completionHandler(.failure(error))
                 }
             }
