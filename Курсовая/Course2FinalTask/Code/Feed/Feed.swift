@@ -53,6 +53,7 @@ class FeedCell: UICollectionViewCell {
     func setupCell() {
         
         guard let post = post else { return }
+        
         if TabBarController.offlineMode == false {
             let urlAvatar = URL(string: post.authorAvatar)!
             avatar.kf.setImage(with: urlAvatar)
@@ -72,7 +73,11 @@ class FeedCell: UICollectionViewCell {
         dateFormatter.doesRelativeDateFormatting = true
         datePost.text = dateFormatter.string(from: post.createdTime)
         
-        labelLike.setTitleColor(.black, for: .normal)
+        if #available(iOS 13.0, *) {
+            labelLike.setTitleColor(.label, for: .normal)
+        } else {
+            // Fallback on earlier versions
+        }
         labelLike.addTarget(self, action: #selector(tapLikesButton), for: .touchUpInside)
         
         commentLabel.text = post.description

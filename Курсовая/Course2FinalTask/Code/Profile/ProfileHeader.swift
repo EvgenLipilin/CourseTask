@@ -47,7 +47,11 @@ class ProfileHeaderCell: UICollectionViewCell {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel?.font = .systemFont(ofSize: 14, weight: .semibold)
-        button.setTitleColor(.black, for: .normal)
+        if #available(iOS 13.0, *) {
+            button.setTitleColor(.label, for: .normal)
+        } else {
+            // Fallback on earlier versions
+        }
         return button
     }()
     
@@ -55,7 +59,11 @@ class ProfileHeaderCell: UICollectionViewCell {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel?.font = .systemFont(ofSize: 14, weight: .semibold)
-        button.setTitleColor(.black, for: .normal)
+        if #available(iOS 13.0, *) {
+            button.setTitleColor(.label, for: .normal)
+        } else {
+            // Fallback on earlier versions
+        }
         return button
     }()
     

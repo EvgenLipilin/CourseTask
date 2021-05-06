@@ -30,6 +30,7 @@ protocol CoreDataInstagram {
 final class CoreDataManager: CoreDataProtocol, CoreDataInstagram {
     
     private let modelName: String
+    
     private lazy var persistentContainer: NSPersistentContainer = {
         
         let container = NSPersistentContainer(name: modelName)

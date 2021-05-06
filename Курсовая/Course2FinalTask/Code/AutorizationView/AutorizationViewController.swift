@@ -43,6 +43,11 @@ final class AutorizationViewController: UIViewController {
         textField.textContentType = .password
         textField.keyboardType = .asciiCapable
         textField.borderStyle = .roundedRect
+        if #available(iOS 13.0, *) {
+            textField.backgroundColor = .systemBackground
+        } else {
+            // Fallback on earlier versions
+        }
         textField.font = .systemFont(ofSize: 14)
         textField.isSecureTextEntry = true
         textField.autocapitalizationType = .none
@@ -73,7 +78,7 @@ final class AutorizationViewController: UIViewController {
         
         createUI()
     }
-
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -87,7 +92,11 @@ final class AutorizationViewController: UIViewController {
     
     //    MARK: - Private Methods
     private func createUI() {
-        view.backgroundColor = .white
+        if #available(iOS 13.0, *) {
+            view.backgroundColor = .systemBackground
+        } else {
+            // Fallback on earlier versions
+        }
         let elements = [loginText, passwordText, loginButton]
         
         elements.forEach { (element) in

@@ -13,6 +13,7 @@ typealias JSONTask = URLSessionDataTask
 typealias JSONCompletionHandler = (Data?, HTTPURLResponse?, Error?) -> Void
 
 enum APIResult<T> {
+    
     case success(T)
     case failure(ErrorManager)
 }
@@ -40,7 +41,7 @@ extension APIManager {
             
             let error: ErrorManager
             guard let HTTPResponse = response as? HTTPURLResponse else {
-
+                
                 TabBarController.offlineMode = true
                 error = .offlineMode
                 completionHandler(nil, nil, error)
@@ -59,7 +60,7 @@ extension APIManager {
                     appDelegate.window?.rootViewController = AutorizationViewController()
                 }
                 completionHandler(nil, HTTPResponse, error)
-
+                
             default:
                 TabBarController.offlineMode = true
                 error = .offlineMode
@@ -78,20 +79,20 @@ extension APIManager {
                     if let error = error {
                         completionHandler(.failure(error as! ErrorManager))
                     }
+                    
                     return
                 }
                 
                 if data.isEmpty {
-                    
-                    let error = NSError()
-                    completionHandler(.failure(error as! ErrorManager))
+                    let error = ErrorManager.unauthorized
+                    completionHandler(.failure(error))
                 }
                 
                 if let value = decodeJSON(type: T.self, from: data) {
                     completionHandler(.success(value))
                 } else {
-                    let error = NSError()
-                    completionHandler(.failure(error as! ErrorManager))
+                    let error = ErrorManager.unauthorized
+                    completionHandler(.failure(error))
                 }
             }
         }
