@@ -28,8 +28,8 @@ class FollowersTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         tableView.register(FollowersCell.self, forCellReuseIdentifier: identifier)
+        self.tableView.tableFooterView = UIView()
         title = titleName
     }
     

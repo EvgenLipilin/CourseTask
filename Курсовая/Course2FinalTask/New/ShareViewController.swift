@@ -24,6 +24,8 @@ class ShareViewController: UIViewController {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        imageView.layer.cornerRadius = 8
         return imageView
     }()
     
@@ -40,7 +42,7 @@ class ShareViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(ofSize: 17)
-        label.textColor = .black
+        label.textColor = .label
         label.text = "Add description"
         return label
     }()
@@ -61,7 +63,7 @@ class ShareViewController: UIViewController {
     
     private func confLayout() {
         
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
         view.addSubview(photoImageView)
         view.addSubview(textField)
         view.addSubview(descriptionLabel)
@@ -95,7 +97,7 @@ class ShareViewController: UIViewController {
             case .success(_):
                 self.tabBarController?.selectedIndex = 0
                 self.navigationController?.popToRootViewController(animated: true)
-                let vc = FeedViewController()
+                _ = FeedViewController()
 //                self.delegate = vc
 //                self.delegate?.updateFeedUI()
                 print("All compleate")

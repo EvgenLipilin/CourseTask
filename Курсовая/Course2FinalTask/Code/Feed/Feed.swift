@@ -47,6 +47,7 @@ class FeedCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         addGesture()
+        avatar.layer.cornerRadius = avatar.frame.height/2
     }
     
     //    MARK: - Public Methods

@@ -54,10 +54,10 @@ class AddFilterViewController: UIViewController {
     //    MARK: - Public Methods
     func createUI() {
         title = "Filters"
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
         view.addSubview(photoImageView)
         view.addSubview(collectionView)
-        collectionView.backgroundColor = .white
+        collectionView.backgroundColor = .systemBackground
         collectionView.dataSource = self
         collectionView.delegate = self
         photoImageView.image = inputBigImage
