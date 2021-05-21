@@ -10,12 +10,12 @@ import UIKit
 
 
 class FollowersTableViewController: UITableViewController {
-    
+    //    MARK: - Pricate Properties
     private var usersArray = [User]()
     private var titleName: String
     private lazy var alert = AlertViewController(view: self)
     
-    
+    //    MARK: - Initilizers
     init(usersArray: [User], titleName: String) {
         self.usersArray = usersArray
         self.titleName = titleName
@@ -38,7 +38,7 @@ class FollowersTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 45
+        return 55
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -50,7 +50,7 @@ class FollowersTableViewController: UITableViewController {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as? FollowersCell else { return UITableViewCell() }
         let user = usersArray[indexPath.row]
         cell.createCell(user: user)
-        
+            // cell.separatorInse
         return cell
     }
     
@@ -58,6 +58,7 @@ class FollowersTableViewController: UITableViewController {
         goToUserProfile(user: usersArray[indexPath.row])
     }
     
+    //    MARK: - Private Methods
     //    Переход в профиль пользователя
     func goToUserProfile(user: User) {
         let storyboard = UIStoryboard(name: "Storyboard", bundle: nil)

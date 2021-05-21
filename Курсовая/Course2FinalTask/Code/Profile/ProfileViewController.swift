@@ -9,8 +9,10 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     
+    //    MARK:- IB Oulets
     @IBOutlet weak var collectionView: UICollectionView!
     
+    //    MARK:- Pravate Properties
     private lazy var block = BlockViewController(view: (tabBarController?.view)!)
     private lazy var alert = AlertViewController(view: self)
     private var postsOfCurrentUser: [Post]?
@@ -21,6 +23,7 @@ class ProfileViewController: UIViewController {
         AppDelegate.shared.dataManager
     }
     
+    //    MARK: - Public Properties
     var user: User?
     
     override func viewDidLoad() {
@@ -253,6 +256,7 @@ extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDel
 }
 
 //    MARK:- FollowUnfollowDelegate
+
 extension ProfileViewController: FollowUnfollowDelegate {
     
     //    Подписаться/отписаться на/от пользователя
