@@ -43,7 +43,7 @@ class ShareViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(ofSize: 17)
         label.textColor = .label
-        label.text = "Add description"
+        label.text = NSLocalizedString("Add description", tableName: "Localizable", bundle: .main, value: "", comment: "")
         return label
     }()
     
@@ -68,7 +68,7 @@ class ShareViewController: UIViewController {
         view.addSubview(textField)
         view.addSubview(descriptionLabel)
         photoImageView.image = inputPhoto
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Share", style: .plain, target: self, action: #selector(tapShareButton))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Share", tableName: "Localizable", bundle: .main, value: "", comment: "") , style: .plain, target: self, action: #selector(tapShareButton))
         
         let constraints = [
             photoImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
@@ -97,11 +97,7 @@ class ShareViewController: UIViewController {
             case .success(_):
                 self.tabBarController?.selectedIndex = 0
                 self.navigationController?.popToRootViewController(animated: true)
-                _ = FeedViewController()
-//                self.delegate = vc
-//                self.delegate?.updateFeedUI()
-                print("All compleate")
-                
+    
             case .failure(let error):
                 self.alert.createAlert(error: error)
                 

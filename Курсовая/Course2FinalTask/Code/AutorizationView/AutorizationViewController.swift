@@ -23,7 +23,7 @@ final class AutorizationViewController: UIViewController {
     private lazy var loginText: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.placeholder = "Login"
+        textField.placeholder = NSLocalizedString("Login", tableName: "Localizable", bundle: .main, value: "", comment: "")
         textField.textContentType = .username
         textField.keyboardType = .emailAddress
         textField.borderStyle = .roundedRect
@@ -39,7 +39,7 @@ final class AutorizationViewController: UIViewController {
     private lazy var passwordText: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.placeholder = "Password"
+        textField.placeholder = NSLocalizedString("Password", tableName: "Localizable", bundle: .main, value: "", comment: "")
         textField.textContentType = .password
         textField.keyboardType = .asciiCapable
         textField.borderStyle = .roundedRect
@@ -62,7 +62,7 @@ final class AutorizationViewController: UIViewController {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = 5
-        button.setTitle("Sign in", for: .normal)
+        button.setTitle( NSLocalizedString("Sign in", tableName: "Localizable", bundle: .main, value: "", comment: ""), for: .normal)
         button.alpha = 0.3
         button.backgroundColor = .systemBlue
         button.titleLabel?.font = .systemFont(ofSize: 15)
@@ -75,7 +75,6 @@ final class AutorizationViewController: UIViewController {
     // MARK: - Life Cycles Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         createUI()
     }
     

@@ -53,7 +53,7 @@ class AddFilterViewController: UIViewController {
     
     //    MARK: - Public Methods
     func createUI() {
-        title = "Filters"
+        title = NSLocalizedString("Filters", tableName: "Localizable", bundle: .main, value: "", comment: "")
         view.backgroundColor = .systemBackground
         view.addSubview(photoImageView)
         view.addSubview(collectionView)
@@ -61,7 +61,7 @@ class AddFilterViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.delegate = self
         photoImageView.image = inputBigImage
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Next", style: .plain, target: self, action: #selector(tapRightBarButton))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Next", tableName: "Localizable", bundle: .main, value: "", comment: ""), style: .plain, target: self, action: #selector(tapRightBarButton))
         
         let constarints = [photoImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
                            photoImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),

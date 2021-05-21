@@ -25,7 +25,7 @@ class FeedCell: UICollectionViewCell {
     private let dateFormatter = DateFormatter()
     var post: Post? {
         didSet {
-            labelLike.setTitle("Likes: \(post?.likedByCount ?? 0)", for: .normal)
+            labelLike.setTitle(NSLocalizedString("Likes:", tableName: "Localizable", bundle: .main, value: "", comment: "") + " \(post?.likedByCount ?? 0)", for: .normal)
             liked = post?.currentUserLikesThisPost ?? false
         }
     }

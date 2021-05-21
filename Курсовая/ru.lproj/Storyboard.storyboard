@@ -9,11 +9,11 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Profile-->
+        <!--Профиль-->
         <scene sceneID="o8o-sA-Hsw">
             <objects>
                 <navigationController id="1yp-kF-HlC" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Profile" image="profile" id="Lqi-vw-Jp5"/>
+                    <tabBarItem key="tabBarItem" title="Профиль" image="profile" id="Lqi-vw-Jp5"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="IzH-dp-1mg">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -26,11 +26,11 @@
             </objects>
             <point key="canvasLocation" x="-145" y="2231"/>
         </scene>
-        <!--Feed-->
+        <!--Лента-->
         <scene sceneID="kkh-dq-S7S">
             <objects>
                 <navigationController id="eCP-zm-x7X" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Feed" image="feed" id="X2B-L7-Epy"/>
+                    <tabBarItem key="tabBarItem" title="Лента" image="feed" id="X2B-L7-Epy"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="VVb-xL-tAR">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -120,11 +120,11 @@
             </objects>
             <point key="canvasLocation" x="687" y="2231"/>
         </scene>
-        <!--New-->
+        <!--Новый Пост-->
         <scene sceneID="Hjg-l3-8Ji">
             <objects>
                 <navigationController id="UFP-Qy-bI8" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="New" image="plus" id="7vm-IO-wrG"/>
+                    <tabBarItem key="tabBarItem" title="Новый Пост" image="plus" id="7vm-IO-wrG"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="eim-zh-G02">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>

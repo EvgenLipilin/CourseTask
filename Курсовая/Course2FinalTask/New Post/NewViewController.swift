@@ -21,7 +21,7 @@ final class NewPostViewController: UIViewController {
         collectionView.register(NewPostCell.self, forCellWithReuseIdentifier: identifierNewPost)
         collectionView.dataSource = self
         collectionView.delegate = self
-        title = "New"
+        title = NSLocalizedString("New", tableName: "Localizable", bundle: .main, value: "", comment: "")
     }
 }
 

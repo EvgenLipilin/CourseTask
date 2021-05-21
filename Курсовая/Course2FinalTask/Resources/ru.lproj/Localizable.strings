@@ -5,3 +5,23 @@
   Created by Евгений Липилин on 21.05.2021.
   Copyright © 2021 e-Legion. All rights reserved.
 */
+
+"New" = "Новый Пост";
+"Next" = "Далее";
+"Share" = "Опубликовать";
+"Add description" = "Описание";
+"Filters" = "Фильты";
+"Following:" = "Подписчики:";
+"Followers:" = "Подписки:";
+"Following" = " Подписчики";
+"Followers" = "Подписка";
+"Password" = "Введите пароль";
+"Login" = "Ваш логин";
+"Sign in" = "Вход";
+"Log out" = "Выход";
+"Likes:" = "Понравилось:";
+"Likes" = "Нравится";
+"Unfollow" = "Отписаться";
+"Follow" = "Подписаться";
+
+

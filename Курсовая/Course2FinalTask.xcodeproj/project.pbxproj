@@ -14,7 +14,7 @@
 		B063488C264304FA0033CAD9 /* instaApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B063488A264304FA0033CAD9 /* instaApp.xcdatamodeld */; };
 		B063488F264309AB0033CAD9 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B063488E264309AB0033CAD9 /* KeychainManager.swift */; };
 		B0658F2626584D06003B38CB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B0658F2826584D06003B38CB /* Localizable.strings */; };
-		B0658F2A26584D7A003B38CB /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0658F2C26584D7A003B38CB /* Storyboard.storyboard */; };
+		B0658F3C26585496003B38CB /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0658F3E26585496003B38CB /* Storyboard.storyboard */; };
 		CF280CCE25DFF38F00BD3DE5 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF280CCD25DFF38F00BD3DE5 /* Token.swift */; };
 		CF280CD125DFF3B200BD3DE5 /* PostID.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF280CD025DFF3B200BD3DE5 /* PostID.swift */; };
 		CF280CD425DFF3C100BD3DE5 /* UserID.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF280CD325DFF3C100BD3DE5 /* UserID.swift */; };
@@ -60,8 +60,8 @@
 		B063488E264309AB0033CAD9 /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		B0658F2726584D06003B38CB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B0658F2926584D0A003B38CB /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
-		B0658F2B26584D7A003B38CB /* ru */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = ru; path = ru.lproj/Storyboard.storyboard; sourceTree = "<group>"; };
-		B0658F2E26584D82003B38CB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Storyboard.strings; sourceTree = "<group>"; };
+		B0658F3D26585496003B38CB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Storyboard.storyboard; sourceTree = "<group>"; };
+		B0658F41265854B9003B38CB /* ru */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = ru; path = ru.lproj/Storyboard.storyboard; sourceTree = "<group>"; };
 		BF2DD1DA444F38625B800AE8 /* Pods-Course2FinalTask.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Course2FinalTask.debug.xcconfig"; path = "Target Support Files/Pods-Course2FinalTask/Pods-Course2FinalTask.debug.xcconfig"; sourceTree = "<group>"; };
 		CF280CCD25DFF38F00BD3DE5 /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		CF280CD025DFF3B200BD3DE5 /* PostID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostID.swift; sourceTree = "<group>"; };
@@ -119,6 +119,7 @@
 		74B7924B202B3254006BCB41 = {
 			isa = PBXGroup;
 			children = (
+				B0658F3E26585496003B38CB /* Storyboard.storyboard */,
 				74B79256202B3254006BCB41 /* Course2FinalTask */,
 				74B79255202B3254006BCB41 /* Products */,
 				D5592B6311F75C023AD8EB25 /* Pods */,
@@ -150,7 +151,6 @@
 			children = (
 				CF660BC025E11E400013F721 /* TabBarController */,
 				74B79257202B3254006BCB41 /* AppDelegate.swift */,
-				B0658F2C26584D7A003B38CB /* Storyboard.storyboard */,
 				CF280CC625DFF0EA00BD3DE5 /* AutorizationView */,
 				CF280CC825DFF13800BD3DE5 /* API */,
 				B06348872643047C0033CAD9 /* CoreDataManager */,
@@ -368,7 +368,7 @@
 				CF5DF2E624E0045E00EDC3D1 /* ProfileCell.xib in Resources */,
 				CF5DF2EA24E0306B00EDC3D1 /* Feed.xib in Resources */,
 				74B7925F202B3254006BCB41 /* Assets.xcassets in Resources */,
-				B0658F2A26584D7A003B38CB /* Storyboard.storyboard in Resources */,
+				B0658F3C26585496003B38CB /* Storyboard.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -470,14 +470,13 @@
 			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
-		B0658F2C26584D7A003B38CB /* Storyboard.storyboard */ = {
+		B0658F3E26585496003B38CB /* Storyboard.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				B0658F2B26584D7A003B38CB /* ru */,
-				B0658F2E26584D82003B38CB /* en */,
+				B0658F3D26585496003B38CB /* Base */,
+				B0658F41265854B9003B38CB /* ru */,
 			);
 			name = Storyboard.storyboard;
-			path = ../..;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

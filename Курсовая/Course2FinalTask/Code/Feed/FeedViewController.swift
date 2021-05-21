@@ -33,11 +33,9 @@ class FeedViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "Feed"
         collectionView.register(UINib(nibName: "Feed", bundle: nil), forCellWithReuseIdentifier: "FeedCell")
         collectionView.dataSource = self
         collectionView.delegate = self
-        
     }
     
     //    Обновляет UI и скроллит в начало ленты при публикации новой фотографии
@@ -143,7 +141,7 @@ extension FeedViewController: LikeImageButtonDelegate {
             switch result {
             case .success(let users):
                 self.block.stopAnimating()
-                let vc = FollowersTableViewController(usersArray: users, titleName: "Likes")
+                let vc = FollowersTableViewController(usersArray: users, titleName: NSLocalizedString("Likes", tableName: "Localizable", bundle: .main, value: "", comment: ""))
                 self.navigationController?.pushViewController(vc, animated: true)
                 
             case .failure(let error):

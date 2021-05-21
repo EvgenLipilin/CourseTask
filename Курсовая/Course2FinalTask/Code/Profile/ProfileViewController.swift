@@ -90,7 +90,7 @@ class ProfileViewController: UIViewController {
 //    Проверка отображать ли кнопку Log out
     private func addLogoutButton() {
         if user?.username == "ivan1975" {
-            navigationItem.setRightBarButton(UIBarButtonItem(title: "Log out", style: .plain, target: self, action: #selector(logoutPressed)), animated: true)
+            navigationItem.setRightBarButton(UIBarButtonItem(title: NSLocalizedString("Log out", tableName: "Localizable", bundle: .main, value: "", comment: "") , style: .plain, target: self, action: #selector(logoutPressed)), animated: true)
         }
     }
     
@@ -171,7 +171,7 @@ class ProfileViewController: UIViewController {
             
             switch result {
             case .success(let users):
-                let vc = FollowersTableViewController(usersArray: users, titleName: "Followers")
+                let vc = FollowersTableViewController(usersArray: users, titleName: NSLocalizedString("Followers", tableName: "Localizable", bundle: .main, value: "", comment: "") )
                 self.navigationController?.pushViewController(vc, animated: true)
                 
             case .failure(let error):
@@ -195,7 +195,7 @@ class ProfileViewController: UIViewController {
             
             switch result {
             case .success(let users):
-                let vc = FollowersTableViewController(usersArray: users, titleName: "Followers")
+                let vc = FollowersTableViewController(usersArray: users, titleName: NSLocalizedString("Following", tableName: "Localizable", bundle: .main, value: "", comment: ""))
                 self.navigationController?.pushViewController(vc, animated: true)
                 
             case .failure(let error):

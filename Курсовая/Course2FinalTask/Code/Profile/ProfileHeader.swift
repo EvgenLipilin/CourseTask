@@ -29,9 +29,9 @@ final class ProfileHeaderCell: UICollectionViewCell {
                 followUnfollowButton.isHidden = false
                 
                 if user?.currentUserFollowsThisUser == true {
-                    followUnfollowButton.setTitle("Unfollow", for: .normal)
+                    followUnfollowButton.setTitle(NSLocalizedString("Unfollow", tableName: "Localizable", bundle: .main, value: "", comment: ""), for: .normal)
                 } else {
-                    followUnfollowButton.setTitle("Follow", for: .normal)
+                    followUnfollowButton.setTitle(NSLocalizedString("Follow", tableName: "Localizable", bundle: .main, value: "", comment: ""), for: .normal)
                 }
             }
         }
@@ -97,8 +97,8 @@ final class ProfileHeaderCell: UICollectionViewCell {
     func createCell() {
         guard let user = user else { return }
         nameLabel.text = user.fullName
-        followersButton.setTitle("Followers: \(user.followsCount)", for: .normal)
-        followingButton.setTitle("Following: \(user.followedByCount)", for: .normal)
+        followersButton.setTitle(NSLocalizedString("Followers:", tableName: "Localizable", bundle: .main, value: "", comment: "") + " \(user.followsCount)", for: .normal)
+        followingButton.setTitle(NSLocalizedString("Following:", tableName: "Localizable", bundle: .main, value: "", comment: "") + " \(user.followedByCount)", for: .normal)
        
         if TabBarController.offlineMode == false {
         let url = URL(string: user.avatar)
