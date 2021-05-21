@@ -15,43 +15,33 @@ protocol FollowUnfollowDelegate: AnyObject {
     func tapFollowUnfollowButton(user: User)
 }
 
-class ProfileHeaderCell: UICollectionViewCell {
+final class ProfileHeaderCell: UICollectionViewCell {
     
+    //    MARK: - Public Properties
     weak var delegate: FollowUnfollowDelegate?
     
     var currentUser: User?
     var user: User? {
         didSet {
-            if currentUser?.id == user?.id {
+            if user?.username == "ivan1975" {
                 followUnfollowButton.isHidden = true
             } else {
+                followUnfollowButton.isHidden = false
+                
                 if user?.currentUserFollowsThisUser == true {
                     followUnfollowButton.setTitle("Unfollow", for: .normal)
-                    followUnfollowButton.isHidden = false
                 } else {
                     followUnfollowButton.setTitle("Follow", for: .normal)
-                    followUnfollowButton.isHidden = false
                 }
             }
         }
     }
     
-    private let nameLabel: UILabel = {
-        let label = UILabel(frame: .init(x: 0, y: 0, width: 100, height: 10))
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 14)
-        return label
-    }()
-    
     let followersButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel?.font = .systemFont(ofSize: 14, weight: .semibold)
-        if #available(iOS 13.0, *) {
-            button.setTitleColor(.label, for: .normal)
-        } else {
-            // Fallback on earlier versions
-        }
+        button.setTitleColor(.black, for: .normal)
         return button
     }()
     
@@ -59,24 +49,12 @@ class ProfileHeaderCell: UICollectionViewCell {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel?.font = .systemFont(ofSize: 14, weight: .semibold)
-        if #available(iOS 13.0, *) {
-            button.setTitleColor(.label, for: .normal)
-        } else {
-            // Fallback on earlier versions
-        }
+        button.setTitleColor(.black, for: .normal)
         return button
     }()
-    
-    private let avatarImageView: UIImageView = {
-        let image = UIImageView()
-        image.translatesAutoresizingMaskIntoConstraints = false
-        image.clipsToBounds = true
-        image.contentMode = .scaleAspectFit
-        image.layer.cornerRadius = 35
-        return image
-    }()
-    
-    let followUnfollowButton: UIButton = {
+   
+    //    MARK: - Private Properties
+   private let followUnfollowButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel?.font = .systemFont(ofSize: 15)
@@ -88,39 +66,58 @@ class ProfileHeaderCell: UICollectionViewCell {
         return button
     }()
     
+    private let nameLabel: UILabel = {
+        let label = UILabel(frame: .init(x: 0, y: 0, width: 100, height: 10))
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .systemFont(ofSize: 14)
+        return label
+    }()
+    
+    private let avatarImageView: UIImageView = {
+        let image = UIImageView()
+        image.translatesAutoresizingMaskIntoConstraints = false
+        image.clipsToBounds = true
+        image.contentMode = .scaleAspectFit
+        image.layer.cornerRadius = 35
+        return image
+    }()
+    
+    //    MARK: - Initializers
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        confUI()
+        configureUI()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //    MARK: - Public Methods
     func createCell() {
         guard let user = user else { return }
         nameLabel.text = user.fullName
         followersButton.setTitle("Followers: \(user.followsCount)", for: .normal)
         followingButton.setTitle("Following: \(user.followedByCount)", for: .normal)
-        
+       
         if TabBarController.offlineMode == false {
         let url = URL(string: user.avatar)
-        avatarImageView.kf.setImage(with: url)
+            avatarImageView.kf.setImage(with: url)
         } else {
             guard let imadeData = user.avatarData else { return }
             avatarImageView.image = UIImage(data: imadeData)
-            
         }
+        
         followUnfollowButton.addTarget(self, action: #selector(tapFollowUnfollow), for: .touchUpInside)
     }
     
+    //    MARK: - Private Methods
     @objc private func tapFollowUnfollow() {
         guard let user = user else { return }
         delegate?.tapFollowUnfollowButton(user: user)
     }
     
-    private func confUI() {
+    private func configureUI() {
         addSubview(avatarImageView)
         addSubview(nameLabel)
         addSubview(followersButton)
@@ -142,7 +139,8 @@ class ProfileHeaderCell: UICollectionViewCell {
                            followingButton.bottomAnchor.constraint(equalTo: avatarImageView.bottomAnchor),
                            
                            followUnfollowButton.topAnchor.constraint(equalTo: nameLabel.topAnchor),
-                           followUnfollowButton.trailingAnchor.constraint(equalTo: followingButton.trailingAnchor)]
+                           followUnfollowButton.trailingAnchor.constraint(equalTo: followingButton.trailingAnchor)
+        ]
         
         NSLayoutConstraint.activate(constraints)
     }
