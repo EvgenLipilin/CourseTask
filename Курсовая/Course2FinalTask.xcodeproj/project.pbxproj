@@ -10,6 +10,7 @@
 		672235C0AA378C9A22EBD52A /* Pods_Course2FinalTask.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AAE99203C495AB3528FE9E4 /* Pods_Course2FinalTask.framework */; };
 		74B79258202B3254006BCB41 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B79257202B3254006BCB41 /* AppDelegate.swift */; };
 		74B7925F202B3254006BCB41 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 74B7925E202B3254006BCB41 /* Assets.xcassets */; };
+		B01331AB2659B797006BB5E5 /* VeganStylePersonalUse.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B01331AA2659B797006BB5E5 /* VeganStylePersonalUse.ttf */; };
 		B0634889264304B00033CAD9 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0634888264304AF0033CAD9 /* CoreDataManager.swift */; };
 		B063488C264304FA0033CAD9 /* instaApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B063488A264304FA0033CAD9 /* instaApp.xcdatamodeld */; };
 		B063488F264309AB0033CAD9 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B063488E264309AB0033CAD9 /* KeychainManager.swift */; };
@@ -54,6 +55,7 @@
 		74B7925E202B3254006BCB41 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7AAE99203C495AB3528FE9E4 /* Pods_Course2FinalTask.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Course2FinalTask.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7B4262D0A4CED94D3B381BA /* Pods-Course2FinalTask.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Course2FinalTask.release.xcconfig"; path = "Target Support Files/Pods-Course2FinalTask/Pods-Course2FinalTask.release.xcconfig"; sourceTree = "<group>"; };
+		B01331AA2659B797006BB5E5 /* VeganStylePersonalUse.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = VeganStylePersonalUse.ttf; path = ../../../../Downloads/VeganStylePersonalUse.ttf; sourceTree = "<group>"; };
 		B0634888264304AF0033CAD9 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		B063488B264304FA0033CAD9 /* instaApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = instaApp.xcdatamodel; sourceTree = "<group>"; };
 		B063488E264309AB0033CAD9 /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
@@ -137,7 +139,6 @@
 		74B79256202B3254006BCB41 /* Course2FinalTask */ = {
 			isa = PBXGroup;
 			children = (
-				CF5F0A86253B7BB20083BA5B /* New Post */,
 				74B7927B202B3427006BCB41 /* Code */,
 				74B7927C202B342E006BCB41 /* Resources */,
 				74B7927D202B3434006BCB41 /* Supporting Files */,
@@ -148,8 +149,9 @@
 		74B7927B202B3427006BCB41 /* Code */ = {
 			isa = PBXGroup;
 			children = (
-				CF660BC025E11E400013F721 /* TabBarController */,
 				74B79257202B3254006BCB41 /* AppDelegate.swift */,
+				CF5F0A86253B7BB20083BA5B /* New Post */,
+				CF660BC025E11E400013F721 /* TabBarController */,
 				CF280CC625DFF0EA00BD3DE5 /* AutorizationView */,
 				CF280CC825DFF13800BD3DE5 /* API */,
 				B06348872643047C0033CAD9 /* CoreDataManager */,
@@ -175,6 +177,7 @@
 			isa = PBXGroup;
 			children = (
 				B0658F492658678B003B38CB /* Info.plist */,
+				B01331AA2659B797006BB5E5 /* VeganStylePersonalUse.ttf */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -356,6 +359,7 @@
 			files = (
 				B0658F2626584D06003B38CB /* Localizable.strings in Resources */,
 				CF5DF2E624E0045E00EDC3D1 /* ProfileCell.xib in Resources */,
+				B01331AB2659B797006BB5E5 /* VeganStylePersonalUse.ttf in Resources */,
 				CF5DF2EA24E0306B00EDC3D1 /* Feed.xib in Resources */,
 				74B7925F202B3254006BCB41 /* Assets.xcassets in Resources */,
 				B0658F3C26585496003B38CB /* Storyboard.storyboard in Resources */,

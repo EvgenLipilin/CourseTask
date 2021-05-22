@@ -72,6 +72,16 @@ final class AutorizationViewController: UIViewController {
         return button
     }()
     
+    private lazy var mainLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "InstaPhoto"
+        label.textColor = .label
+        label.font = UIFont(name: "VeganStylePersonalUse", size: 36)
+        label.sizeToFit()
+        return label
+    }()
+    
     // MARK: - Life Cycles Methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,7 +91,7 @@ final class AutorizationViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        guard let token = keychain.readToken(userName: "user") else { return }
+        guard let token = keychain.readToken(userName: "T") else { return }
         block.startAnimating()
         APIListManager.token = token
         block.stopAnimating()
@@ -96,7 +106,7 @@ final class AutorizationViewController: UIViewController {
         } else {
             // Fallback on earlier versions
         }
-        let elements = [loginText, passwordText, loginButton]
+        let elements = [loginText, passwordText, loginButton, mainLabel]
         
         elements.forEach { (element) in
             view.addSubview(element)
@@ -111,11 +121,20 @@ final class AutorizationViewController: UIViewController {
                            passwordText.leadingAnchor.constraint(equalTo: loginText.leadingAnchor),
                            loginText.trailingAnchor.constraint(equalTo: loginText.trailingAnchor),
                            passwordText.heightAnchor.constraint(equalToConstant: 40),
+                           passwordText.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+                           passwordText.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
                            
                            loginButton.topAnchor.constraint(equalTo: passwordText.bottomAnchor, constant: 100),
                            loginButton.leadingAnchor.constraint(equalTo: loginText.leadingAnchor),
                            loginButton.trailingAnchor.constraint(equalTo: loginText.trailingAnchor),
-                           loginButton.heightAnchor.constraint(equalToConstant: 50)]
+                           loginButton.heightAnchor.constraint(equalToConstant: 50),
+        
+                           mainLabel.topAnchor.constraint(equalTo: passwordText.bottomAnchor, constant: 20),
+                           mainLabel.bottomAnchor.constraint(equalTo: loginButton.topAnchor),
+                           mainLabel.centerXAnchor.constraint(equalTo: passwordText.centerXAnchor),
+                           mainLabel.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -(view.frame.width/2)),
+                    
+        ]
         
         NSLayoutConstraint.activate(constraints)
     }
@@ -126,6 +145,9 @@ final class AutorizationViewController: UIViewController {
         guard let tabBar = storyboard.instantiateViewController(withIdentifier: "TabBar") as? TabBarController else { return }
         appDelegate.window?.rootViewController = tabBar
     }
+    
+    
+ 
     
     @objc private func inputText() {
         guard let login = loginText.text,

@@ -13,7 +13,7 @@ import Kingfisher
 let identifier = "FollowersCell"
 
 class FollowersCell: UITableViewCell {
-    
+    //    MARK: - Pricate Properties
     private var avatarImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
