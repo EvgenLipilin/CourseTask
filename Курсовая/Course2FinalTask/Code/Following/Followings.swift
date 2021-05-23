@@ -50,7 +50,7 @@ class FollowersTableViewController: UITableViewController {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as? FollowersCell else { return UITableViewCell() }
         let user = usersArray[indexPath.row]
         cell.createCell(user: user)
-            // cell.separatorInse
+        // cell.separatorInse
         return cell
     }
     

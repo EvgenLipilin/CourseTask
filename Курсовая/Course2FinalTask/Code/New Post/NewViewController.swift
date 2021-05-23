@@ -25,7 +25,6 @@ final class NewPostViewController: UIViewController {
     }
 }
 
-
 extension NewPostViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {

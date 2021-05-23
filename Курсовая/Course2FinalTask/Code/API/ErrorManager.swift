@@ -9,6 +9,8 @@
 import Foundation
 
 enum ErrorManager: String, Error {
-    case unauthorized = "Unauthorized" // 401
+    case unauthorized = "Unauthorized"
     case offlineMode = "Offline Mode"
+    case login = "invalid username or password"
 }
+

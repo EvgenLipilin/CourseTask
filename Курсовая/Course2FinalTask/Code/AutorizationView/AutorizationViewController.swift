@@ -128,12 +128,12 @@ final class AutorizationViewController: UIViewController {
                            loginButton.leadingAnchor.constraint(equalTo: loginText.leadingAnchor),
                            loginButton.trailingAnchor.constraint(equalTo: loginText.trailingAnchor),
                            loginButton.heightAnchor.constraint(equalToConstant: 50),
-        
+                           
                            mainLabel.topAnchor.constraint(equalTo: passwordText.bottomAnchor, constant: 20),
                            mainLabel.bottomAnchor.constraint(equalTo: loginButton.topAnchor),
                            mainLabel.centerXAnchor.constraint(equalTo: passwordText.centerXAnchor),
                            mainLabel.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -(view.frame.width/2)),
-                    
+                           
         ]
         
         NSLayoutConstraint.activate(constraints)
@@ -147,7 +147,7 @@ final class AutorizationViewController: UIViewController {
     }
     
     
- 
+    
     
     @objc private func inputText() {
         guard let login = loginText.text,
@@ -159,17 +159,15 @@ final class AutorizationViewController: UIViewController {
     @objc private func signinPressed() {
         guard let login = loginText.text,
               let password = passwordText.text else { return }
+        
         apiManager.signin(login: login, password: password) { [weak self] (result) in
             
             switch result {
             case .success(let token):
                 
                 APIListManager.token = token.token
-                
                 let storyboard = UIStoryboard(name: AppDelegate.storyboardName, bundle: nil)
-                
                 guard let tabBar = storyboard.instantiateViewController(withIdentifier: "TabBar") as? TabBarController else { return }
-                
                 self?.appDelegate.window?.rootViewController = tabBar
                 
             case.failure(let error):

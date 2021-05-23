@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 class FilterOperation: Operation {
-    
+    //    MARK: - Private Properties
     private let inputImage: UIImage
     private let inputFilter: String
     private(set) var outputImage: UIImage?

@@ -32,5 +32,4 @@ extension AppDelegate {
     static var shared: AppDelegate {
         UIApplication.shared.delegate as! AppDelegate
     }
-
 }

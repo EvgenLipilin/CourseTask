@@ -90,7 +90,7 @@ class ProfileViewController: UIViewController {
         }
     }
     
-//    Проверка отображать ли кнопку Log out
+    //    Проверка отображать ли кнопку Log out
     private func addLogoutButton() {
         if user?.username == "ivan1975" {
             navigationItem.setRightBarButton(UIBarButtonItem(title: NSLocalizedString("Log out", tableName: "Localizable", bundle: .main, value: "", comment: "") , style: .plain, target: self, action: #selector(logoutPressed)), animated: true)
@@ -99,7 +99,6 @@ class ProfileViewController: UIViewController {
     
     //    Логика по созданию массива постов
     private func createPostsArray() {
-        
         block.startAnimating()
         guard self.user != nil else { return }
         apiManger.userPosts(token: APIListManager.token, id: user!.id) { [weak self] (result) in
@@ -146,15 +145,15 @@ class ProfileViewController: UIViewController {
         return dataManager.fetchCurrentUser(for: CurrentUser.self)
     }
     
-//    Выход из профиля
+    //    Выход из профиля
     @objc private func logoutPressed() {
         apiManger.signout(token: APIListManager.token) { [weak self] _ in
             guard let self = self else { return }
-
+            
             APIListManager.token = ""
             self.keychain.deleteToken(userName: "user")
             
-                self.appDelegate.window?.rootViewController = AutorizationViewController()
+            self.appDelegate.window?.rootViewController = AutorizationViewController()
         }
     }
     

@@ -97,7 +97,7 @@ class ShareViewController: UIViewController {
             case .success(_):
                 self.tabBarController?.selectedIndex = 0
                 self.navigationController?.popToRootViewController(animated: true)
-    
+                
             case .failure(let error):
                 self.alert.createAlert(error: error)
                 

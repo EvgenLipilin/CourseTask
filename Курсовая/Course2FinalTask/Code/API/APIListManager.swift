@@ -26,7 +26,6 @@ final class APIListManager: APIManager, RequestManager {
         self.init(sessionConfiguration: URLSessionConfiguration.default)
     }
     
-    
     func signin(login: String, password: String, completion: @escaping (APIResult<Token>) -> Void) {
         let request = signinRequest(userName: login, password: password)
         fetch(request: request, completionHandler: completion)

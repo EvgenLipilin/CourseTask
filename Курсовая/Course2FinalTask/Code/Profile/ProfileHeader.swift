@@ -52,9 +52,9 @@ final class ProfileHeaderCell: UICollectionViewCell {
         button.setTitleColor(.label, for: .normal)
         return button
     }()
-   
+    
     //    MARK: - Private Properties
-   private let followUnfollowButton: UIButton = {
+    private let followUnfollowButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel?.font = .systemFont(ofSize: 15)
@@ -99,9 +99,9 @@ final class ProfileHeaderCell: UICollectionViewCell {
         nameLabel.text = user.fullName
         followersButton.setTitle(NSLocalizedString("Followers:", tableName: "Localizable", bundle: .main, value: "", comment: "") + " \(user.followsCount)", for: .normal)
         followingButton.setTitle(NSLocalizedString("Following:", tableName: "Localizable", bundle: .main, value: "", comment: "") + " \(user.followedByCount)", for: .normal)
-       
+        
         if TabBarController.offlineMode == false {
-        let url = URL(string: user.avatar)
+            let url = URL(string: user.avatar)
             avatarImageView.kf.setImage(with: url)
         } else {
             guard let imadeData = user.avatarData else { return }

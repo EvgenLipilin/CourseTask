@@ -26,7 +26,6 @@ final class KeychainManager: KeychainProtocol {
         if let userName = userName {
             query[kSecAttrAccount as String] = userName as AnyObject
         }
-        
         return query
     }
     
@@ -57,7 +56,6 @@ final class KeychainManager: KeychainProtocol {
         
         var queryResult: AnyObject?
         let status = SecItemCopyMatching(query as CFDictionary, UnsafeMutablePointer(&queryResult))
-        
         if status != noErr {
             return nil
         }

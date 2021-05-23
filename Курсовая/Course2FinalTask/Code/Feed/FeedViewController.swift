@@ -29,10 +29,11 @@ class FeedViewController: UIViewController {
         AppDelegate.shared.dataManager
     }
     
+    
+    
     //        MARK:- Life Cycles Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         collectionView.register(UINib(nibName: "Feed", bundle: nil), forCellWithReuseIdentifier: "FeedCell")
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -72,7 +73,7 @@ class FeedViewController: UIViewController {
                 case .offlineMode:
                     self.postsArray = self.fetchFeedFromCoreData()
                     self.collectionView.reloadData()
-                
+                    
                 default:
                     return
                 }
@@ -141,7 +142,7 @@ extension FeedViewController: LikeImageButtonDelegate {
             switch result {
             case .success(let users):
                 self.block.stopAnimating()
-                let vc = FollowersTableViewController(usersArray: users, titleName: NSLocalizedString("Likes", tableName: "Localizable", bundle: .main, value: "", comment: ""))
+                let vc = FollowersTableViewController(usersArray: users, titleName: NSLocalizedString("Like it", tableName: "Localizable", bundle: .main, value: "", comment: ""))
                 self.navigationController?.pushViewController(vc, animated: true)
                 
             case .failure(let error):
